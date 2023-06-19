@@ -17,12 +17,17 @@ public class CSVImporter {
              PreparedStatement statement = connection.prepareStatement(INSERT_QUERY)) {
 
             String line;
+            boolean isFirstLine = true;
             while ((line = reader.readLine()) != null) {
+            	if (isFirstLine) {
+                    isFirstLine = false;
+                    continue; // Salta la prima riga
+                }
                 String[] data = line.split(";");
 
                 // Imposta i parametri per l'inserimento dei dati nella query preparata
-                statement.setString(1, data[0]);
-                statement.setString(2, data[1]);
+                statement.setInt(1, Integer.parseInt(data[0]));
+                statement.setInt(2,Integer.parseInt(data[1]));
                 statement.setString(3, data[2]);
 
                 // Esegui l'inserimento dei dati
