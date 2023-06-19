@@ -4,10 +4,15 @@ import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.Data;
 
-
+@Entity
+@Table(name = "provincia")
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Data
 public class Provincia {
 	
@@ -21,13 +26,5 @@ public class Provincia {
 	@OneToMany
 	private List<Comune> comune;
 
-	public Provincia(String sigla, String provincia, String regione) {
-		super();
-		this.sigla = sigla;
-		this.provincia = provincia;
-		this.regione = regione;
-	}
-	
-	
 	
 }
