@@ -4,6 +4,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -42,7 +43,7 @@ public class UtenteController {
 	}
 	
 	@GetMapping("/{utenteId}")
-	public Optional<Utente> getUtente(@PathVariable UUID utenteId) throws Exception {
+	public Utente getUtente(@PathVariable UUID utenteId) throws Exception {
 		return utenteService.findUtenteById(utenteId);
 	}
 	
@@ -53,7 +54,7 @@ public class UtenteController {
 	
 	@DeleteMapping("/{utenteId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deleteUtente(@PathVariable UUID utenteId) {
+	public void deleteUtente(@PathVariable UUID utenteId) throws NotFoundException {
 		utenteService.findUtenteByIdAndDelete(utenteId);
 	}
 }
