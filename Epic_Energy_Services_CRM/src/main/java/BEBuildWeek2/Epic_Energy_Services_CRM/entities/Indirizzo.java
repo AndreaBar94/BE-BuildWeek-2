@@ -20,11 +20,11 @@ public class Indirizzo {
 	private Integer cap;
 
 	@OneToOne
-	@JoinColumn(name = "Province")
+	@JoinColumn(name = "Provincia_ID")
 	private Provincia località;
 
 	@OneToOne
-	@JoinColumn(name = "Comuni")
+	@JoinColumn(name = "Comune_ID")
 	private Comune comune;
 
 	public Indirizzo(UUID idIndirizzo, String via, Integer civico, Integer cap, Provincia località, Comune comune) {
