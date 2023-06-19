@@ -7,19 +7,19 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class CSVImporter {
-    private static final String CSV_FILE_PATH = "comuni-italiani.csv";
-    private static final String INSERT_QUERY = "INSERT INTO nome_tabella (colonna1, colonna2, colonna3) VALUES (?, ?, ?)";
+public class CSVImporter2 {
+	private static final String CSV_FILE_PATH = "province-italiane.csv";
+    private static final String INSERT_QUERY = "INSERT INTO province (colonna1, colonna2, colonna3) VALUES (?, ?, ?)";
 
     public static void importCSVData() {
         try (Connection connection = DatabaseConnection.getConnection();
              BufferedReader reader = new BufferedReader(new FileReader(CSV_FILE_PATH));
              PreparedStatement statement = connection.prepareStatement(INSERT_QUERY)) {
-
+        	
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(";");
-
+                
                 // Imposta i parametri per l'inserimento dei dati nella query preparata
                 statement.setString(1, data[0]);
                 statement.setString(2, data[1]);
@@ -29,7 +29,7 @@ public class CSVImporter {
                 statement.executeUpdate();
             }
 
-            System.out.println("Importazione comuni CSV completata.");
+            System.out.println("Importazione province CSV completata.");
 
         } catch (IOException | SQLException e) {
             e.printStackTrace();
