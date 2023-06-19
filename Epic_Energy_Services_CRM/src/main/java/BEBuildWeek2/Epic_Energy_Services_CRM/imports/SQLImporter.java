@@ -34,8 +34,9 @@ public class SQLImporter {
             e.printStackTrace();
         }
     }
-
+    
     public static void main(String[] args) {
-        importSQLFile();
+    	//scommentare per vedere il database popolato con i dati del file fornito da traccia
+       // importSQLFile();
     }
 }
