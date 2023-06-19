@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class CSVImporter {
     private static final String CSV_FILE_PATH = "comuni-italiani.csv";
-    private static final String INSERT_QUERY = "INSERT INTO nome_tabella (colonna1, colonna2, colonna3) VALUES (?, ?, ?)";
+    private static final String INSERT_QUERY = "INSERT INTO comune (codice_provincia, progressivo_comune, nome) VALUES (?, ?, ?)";
 
     public static void importCSVData() {
         try (Connection connection = DatabaseConnection.getConnection();
@@ -37,6 +37,6 @@ public class CSVImporter {
     }
 
     public static void main(String[] args) {
-        importCSVData();
+        //importCSVData();
     }
 }

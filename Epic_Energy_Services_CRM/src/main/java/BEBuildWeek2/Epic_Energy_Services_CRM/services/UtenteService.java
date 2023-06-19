@@ -63,6 +63,6 @@ public class UtenteService {
 	}
 
 	public Optional<Utente> findUtenteByEmail(String email) { // throws NotFoundException {
-		return utenteRepo.findByEmail(email); // .orElseThrow(() -> new NotFoundException("User not found!"));
+		return utenteRepo.findByEmailUtente(email); // .orElseThrow(() -> new NotFoundException("User not found!"));
 	}
 }
