@@ -2,6 +2,7 @@ package BEBuildWeek2.Epic_Energy_Services_CRM.services;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 
@@ -13,7 +14,7 @@ import BEBuildWeek2.Epic_Energy_Services_CRM.utils.StatoFattura;
 
 @Service
 public class FatturaService {
-	private FatturaRepository fatturaRepository;
+	private final FatturaRepository fatturaRepository;
 
 	public FatturaService(FatturaRepository fatturaRepository) {
 		this.fatturaRepository = fatturaRepository;
@@ -32,6 +33,10 @@ public class FatturaService {
 	public Fattura getFatturaById(UUID id) {
 		return fatturaRepository.findById(id)
 				.orElseThrow(() -> new NoSuchElementException("Fattura non trovata con ID: " + id));
+	}
+
+	public List<Fattura> getAllFatture() {
+		return fatturaRepository.findAll();
 	}
 
 	public Fattura updateFattura(UUID id, int numeroFattura, int anno, Date data, BigDecimal importo,

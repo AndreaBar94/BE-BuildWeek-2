@@ -31,9 +31,9 @@ public class ClienteController {
 		return clienteService.getAllClienti();
 	}
 
-	@GetMapping("/{id}")
-	public Cliente getClienteById(@PathVariable UUID id) {
-		return clienteService.getClienteById(id);
+	@GetMapping("/{clienteId}")
+	public Cliente getClienteById(@PathVariable UUID clienteId) {
+		return clienteService.getClienteById(clienteId);
 	}
 
 	@PostMapping
@@ -41,13 +41,13 @@ public class ClienteController {
 		return clienteService.createCliente(cliente);
 	}
 
-	@PutMapping("/{id}")
-	public Cliente updateCliente(@PathVariable UUID id, @RequestBody Cliente cliente) {
-		return clienteService.updateCliente(id, cliente);
+	@PutMapping("/{clienteId}")
+	public Cliente updateCliente(@PathVariable UUID clienteId, @RequestBody Cliente cliente) {
+		return clienteService.updateCliente(clienteId, cliente);
 	}
 
-	@DeleteMapping("/{id}")
-	public void deleteCliente(@PathVariable UUID id) {
-		clienteService.deleteCliente(id);
+	@DeleteMapping("/{clienteId}")
+	public void deleteCliente(@PathVariable UUID clienteId) {
+		clienteService.deleteCliente(clienteId);
 	}
 }
