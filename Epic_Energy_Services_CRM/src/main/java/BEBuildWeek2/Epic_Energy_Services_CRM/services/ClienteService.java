@@ -36,17 +36,17 @@ public class ClienteService {
 	    }
 	}
 
-//	public List<Cliente> findClientiByDataInserimento(Date dataInserimento) {
-//	    // Implementazione simile per la ricerca per data di inserimento
-//	}
-//
-//	public List<Cliente> findClientiByUltimoContatto(Date ultimoContatto) {
-//	    // Implementazione simile per la ricerca per ultimo contatto
-//	}
-//
-//	public List<Cliente> findClientiByNome(String nome) {
-//	    // Implementazione simile per la ricerca per nome
-//	}
+    public List<Cliente> findClientiByDataInserimento(Date dataInserimento) {
+        return clienteRepository.findClientiByDataInserimento(dataInserimento);
+    }
+
+    public List<Cliente> findClientiByDataUltimoContatto(Date dataUltimoContatto) {
+        return clienteRepository.findClientiByDataUltimoContatto(dataUltimoContatto);
+    }
+
+    public List<Cliente> findClientiByRagioneSociale(String ragioneSociale) {
+        return clienteRepository.findClientiByRagioneSociale(ragioneSociale);
+    }
 
 	
 	public Cliente createCliente(Cliente cliente) {
