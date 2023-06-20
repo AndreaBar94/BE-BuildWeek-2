@@ -27,7 +27,9 @@ public class Cliente {
 	@GeneratedValue
 	private UUID idCliente;
 	private String partitaIva;
-
+	
+	private String ragioneSociale;
+	
 	@Enumerated(EnumType.STRING)
 	private TipoCliente tipoCliente;
 
@@ -57,11 +59,11 @@ public class Cliente {
 	@JoinColumn(name = "indirizzo_id")
 	private Indirizzo indirizzo;
 
-	public Cliente(UUID idCliente, String partitaIva, TipoCliente tipoCliente, String emailCliente,
+	public Cliente(String ragioneSociale, String partitaIva, TipoCliente tipoCliente, String emailCliente,
 			Date dataInserimento, Date dataUltimoContatto, Double fatturatoAnnuale, String pec, Integer telefono, List<Fattura> fatture,
 			Utente emailUtente, Utente nome, Utente cognome, Indirizzo indirizzo) {
 		super();
-		this.idCliente = idCliente;
+		this.ragioneSociale = ragioneSociale;
 		this.partitaIva = partitaIva;
 		this.tipoCliente = tipoCliente;
 		this.emailCliente = emailCliente;
