@@ -50,7 +50,7 @@ public class FatturaController {
 		return fatturaService.createFattura(numeroFattura, anno, data, importo, stato);
 	}
 
-	@PutMapping("/{id}")
+	@PutMapping("/{fatturaId}")
 	public Fattura updateFattura(@PathVariable UUID fatturaId, @RequestBody Fattura fattura) {
 		int numeroFattura = fattura.getNumeroFattura();
 		int anno = fattura.getAnno();
@@ -61,7 +61,7 @@ public class FatturaController {
 		return fatturaService.updateFattura(fatturaId, numeroFattura, anno, data, importo, stato);
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/{fatturaId}")
 	public void deleteFattura(@PathVariable UUID fatturaId) {
 		fatturaService.deleteFattura(fatturaId);
 	}
