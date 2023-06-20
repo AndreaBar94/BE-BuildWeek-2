@@ -27,6 +27,6 @@ public class Fattura {
 
 	@ManyToOne
 	@JoinColumn(name = "idCliente")
-	private UUID idCliente;
+	private Cliente idCliente;
 
 }

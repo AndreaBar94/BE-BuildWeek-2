@@ -12,8 +12,8 @@ import BEBuildWeek2.Epic_Energy_Services_CRM.entities.Fattura;
 
 @Repository
 public interface FatturaRepository extends JpaRepository<Fattura, UUID> {
-	List<Fattura> findByClienteId(UUID idCliente);
-
+//	List<Fattura> findByClienteId(UUID idCliente);
+//
 	List<Fattura> findByState(String state);
 
 	List<Fattura> findByData(Date data);

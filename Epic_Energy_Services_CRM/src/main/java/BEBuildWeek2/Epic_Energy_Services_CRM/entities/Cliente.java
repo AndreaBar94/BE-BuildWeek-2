@@ -40,7 +40,7 @@ public class Cliente {
 	private String pec;
 	private Integer telefono;
 
-	@OneToMany(mappedBy = "cliente")
+	@OneToMany(mappedBy = "idCliente")
 	private List<Fattura> fatture;
 
 	@ManyToOne
