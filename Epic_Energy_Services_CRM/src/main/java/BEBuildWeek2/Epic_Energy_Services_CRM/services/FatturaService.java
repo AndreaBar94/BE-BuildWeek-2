@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import BEBuildWeek2.Epic_Energy_Services_CRM.entities.Fattura;
+import BEBuildWeek2.Epic_Energy_Services_CRM.repositories.ClienteRepository;
 import BEBuildWeek2.Epic_Energy_Services_CRM.repositories.FatturaRepository;
 import BEBuildWeek2.Epic_Energy_Services_CRM.utils.StatoFattura;
 
@@ -21,6 +22,8 @@ public class FatturaService {
 	public FatturaService(FatturaRepository fatturaRepository) {
 		this.fatturaRepository = fatturaRepository;
 	}
+	@Autowired
+	ClienteService clienteService;
 
 	public Fattura createFattura(int numeroFattura, int anno, Date data, BigDecimal importo, StatoFattura stato) {
 		Fattura fattura = new Fattura();
@@ -56,10 +59,11 @@ public class FatturaService {
 		fatturaRepository.deleteById(id);
 	}
 
-//	public List<Fattura> findFatturaByCliente(UUID idCliente) {
-//		return fatturaRepository.findByClienteId(idCliente);
-//	}
-//
+	public List<Fattura> findFatturaByCliente(UUID idCliente) {
+		
+		return fatturaRepository.findByIdCliente(clienteService.getClienteById(idCliente));
+	}
+
 	public List<Fattura> findFatturaByStato(String state) {
 		return fatturaRepository.findByState(state);
 	}
