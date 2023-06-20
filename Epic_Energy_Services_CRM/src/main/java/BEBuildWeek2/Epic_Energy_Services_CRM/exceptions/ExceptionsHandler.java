@@ -1,17 +1,32 @@
 package BEBuildWeek2.Epic_Energy_Services_CRM.exceptions;
 
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import BEBuildWeek2.Epic_Energy_Services_CRM.payloads.ErrorsPayload;
+import BEBuildWeek2.Epic_Energy_Services_CRM.payloads.ErrorsPayloadWithErrorsList;
 
 
 @RestControllerAdvice
 public class ExceptionsHandler {
+	
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<ErrorsPayloadWithErrorsList> handleValidationErrors(MethodArgumentNotValidException ex) {
+		List<String> errors = ex.getBindingResult().getFieldErrors().stream().map(error -> error.getDefaultMessage())
+				.collect(Collectors.toList());
+
+		ErrorsPayloadWithErrorsList payload = new ErrorsPayloadWithErrorsList("Ci sono stati errori nel body",
+				new Date(), 400, errors);
+
+		return new ResponseEntity<ErrorsPayloadWithErrorsList>(payload, HttpStatus.BAD_REQUEST);
+	}
 	
 	@ExceptionHandler(NotFoundException.class)
 	public ResponseEntity<ErrorsPayload> handleNotFound(NotFoundException e) {
