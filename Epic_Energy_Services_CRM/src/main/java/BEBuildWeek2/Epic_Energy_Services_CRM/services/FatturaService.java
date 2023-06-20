@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import BEBuildWeek2.Epic_Energy_Services_CRM.entities.Fattura;
@@ -14,6 +15,7 @@ import BEBuildWeek2.Epic_Energy_Services_CRM.utils.StatoFattura;
 
 @Service
 public class FatturaService {
+	@Autowired
 	private final FatturaRepository fatturaRepository;
 
 	public FatturaService(FatturaRepository fatturaRepository) {
