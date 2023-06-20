@@ -35,13 +35,13 @@ public class UtenteController {
 	}
 
 	@GetMapping("")
-	public Page<Utente> getUtente(@RequestParam(defaultValue = "0") int page,
-			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "idUtente") String sortBy) throws NotFoundException{
+	public Page<Utente> getUtenti(@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "idUtente") String sortBy) {
 		return utenteService.findAllUtenti(page, size, sortBy);
 	}
 
 	@GetMapping("/{utenteId}")
-	public Utente getUtente(@PathVariable UUID utenteId) throws NotFoundException {
+	public Utente getUtenteById(@PathVariable UUID utenteId) throws NotFoundException {
 		return utenteService.findUtenteById(utenteId);
 	}
 
