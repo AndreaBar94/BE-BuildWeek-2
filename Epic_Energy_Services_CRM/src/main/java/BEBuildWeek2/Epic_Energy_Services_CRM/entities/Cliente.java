@@ -38,8 +38,8 @@ public class Cliente {
 	private String pec;
 	private Integer telefono;
 
-//	@OneToMany(mappedBy = "cliente")
-//	private List<Fattura> fatture;
+	@OneToMany(mappedBy = "cliente")
+	private List<Fattura> fatture;
 
 	@ManyToOne
 	@JoinColumn(name = "utente_email")
@@ -59,7 +59,7 @@ public class Cliente {
 
 	public Cliente(UUID idCliente, String partitaIva, TipoCliente tipoCliente, String emailCliente,
 			Date dataInserimento, Date dataUltimoContatto, Double fatturatoAnnuale, String pec, Integer telefono,
-			Utente emailUtente, Utente nome, Utente cognome, Indirizzo indirizzo) {
+			List<Fattura> fatture, Utente emailUtente, Utente nome, Utente cognome, Indirizzo indirizzo) {
 		super();
 		this.idCliente = idCliente;
 		this.partitaIva = partitaIva;
@@ -70,7 +70,7 @@ public class Cliente {
 		this.fatturatoAnnuale = fatturatoAnnuale;
 		this.pec = pec;
 		this.telefono = telefono;
-		//this.fatture = fatture;
+		this.fatture = fatture;
 		this.emailUtente = emailUtente;
 		this.nome = nome;
 		this.cognome = cognome;
