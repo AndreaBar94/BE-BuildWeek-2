@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import BEBuildWeek2.Epic_Energy_Services_CRM.entities.Utente;
 import BEBuildWeek2.Epic_Energy_Services_CRM.payloads.AuthenticationSuccessfullPayload;
+import BEBuildWeek2.Epic_Energy_Services_CRM.payloads.UserLoginPayload;
 import BEBuildWeek2.Epic_Energy_Services_CRM.payloads.UserRegistrationPayload;
 import BEBuildWeek2.Epic_Energy_Services_CRM.services.UtenteService;
 
@@ -41,7 +42,7 @@ public class AuthController {
 	public ResponseEntity<AuthenticationSuccessfullPayload> login(@RequestBody UserLoginPayload body) throws NotFoundException{
 		
 		//cerco la mail inserita nel login tra quelle degli utenti
-		Utente user = usersService.findByEmail(body.getEmail());
+		Utente user = usersService.findUtenteByEmail(body.getEmailUtente());
 		
 		//se la trovo faccio il check sulla password, se non corrisponde lancio errore 401
 		//if(!body.getPassword().matches(user.getPassword())) throw new UnauthorizedException("Credenziali non valide");
