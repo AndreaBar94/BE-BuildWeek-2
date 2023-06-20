@@ -32,6 +32,11 @@ public class SecurityConfig {
 	        auth.requestMatchers(HttpMethod.GET, "/utenti").hasAnyAuthority("USER", "ADMIN");
 	        auth.requestMatchers("/utenti/**").hasAuthority("ADMIN");
 	    });
+		
+		http.authorizeHttpRequests(auth -> {
+	        auth.requestMatchers(HttpMethod.GET, "/clienti").hasAnyAuthority("USER", "ADMIN");
+	        auth.requestMatchers("/clienti/**").hasAuthority("ADMIN");
+	    });
 
 		http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
