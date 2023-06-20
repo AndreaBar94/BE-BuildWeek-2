@@ -19,9 +19,9 @@ import BEBuildWeek2.Epic_Energy_Services_CRM.services.IndirizzoService;
 @RestController
 @RequestMapping("/indirizzi")
 public class IndirizzoController {
+	@Autowired
 	private final IndirizzoService indirizzoService;
 
-	@Autowired
 	public IndirizzoController(IndirizzoService indirizzoService) {
 		this.indirizzoService = indirizzoService;
 	}

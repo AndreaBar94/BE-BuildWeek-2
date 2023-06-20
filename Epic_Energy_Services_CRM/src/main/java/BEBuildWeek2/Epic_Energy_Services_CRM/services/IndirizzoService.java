@@ -11,9 +11,9 @@ import BEBuildWeek2.Epic_Energy_Services_CRM.repositories.IndirizzoRepository;
 
 @Service
 public class IndirizzoService {
+	@Autowired
 	private final IndirizzoRepository indirizzoRepository;
 
-	@Autowired
 	public IndirizzoService(IndirizzoRepository indirizzoRepository) {
 		this.indirizzoRepository = indirizzoRepository;
 	}

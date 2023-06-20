@@ -11,9 +11,9 @@ import BEBuildWeek2.Epic_Energy_Services_CRM.repositories.ClienteRepository;
 
 @Service
 public class ClienteService {
+	@Autowired
 	private final ClienteRepository clienteRepository;
 
-	@Autowired
 	public ClienteService(ClienteRepository clienteRepository) {
 		this.clienteRepository = clienteRepository;
 	}
