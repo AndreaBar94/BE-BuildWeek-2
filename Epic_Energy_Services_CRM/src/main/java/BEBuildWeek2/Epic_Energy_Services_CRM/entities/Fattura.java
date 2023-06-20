@@ -11,13 +11,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Entity
-@EqualsAndHashCode
 @Data
 public class Fattura {
-	
+
 	@Id
 	@GeneratedValue
 	private UUID idFattura;
@@ -26,8 +24,9 @@ public class Fattura {
 	private Date data;
 	private BigDecimal importo;
 	private StatoFattura state;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "cliente_id")
-	private Cliente cliente;
+	@JoinColumn(name = "idCliente")
+	private UUID idCliente;
+
 }

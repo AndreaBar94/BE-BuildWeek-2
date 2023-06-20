@@ -56,12 +56,12 @@ public class FatturaService {
 		fatturaRepository.deleteById(id);
 	}
 
-	public List<Fattura> findFatturaByCliente(UUID clienteId) {
-		return fatturaRepository.findByClienteId(clienteId);
+	public List<Fattura> findFatturaByCliente(UUID idCliente) {
+		return fatturaRepository.findByClienteId(idCliente);
 	}
 
-	public List<Fattura> findFatturaByStato(String stato) {
-		return fatturaRepository.findByStato(stato);
+	public List<Fattura> findFatturaByStato(String state) {
+		return fatturaRepository.findByState(state);
 	}
 
 	public List<Fattura> findFatturaByData(Date data) {
