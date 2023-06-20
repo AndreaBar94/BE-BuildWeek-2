@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import BEBuildWeek2.Epic_Energy_Services_CRM.entities.Utente;
+import BEBuildWeek2.Epic_Energy_Services_CRM.exceptions.NotFoundException;
+import BEBuildWeek2.Epic_Energy_Services_CRM.exceptions.UnauthorizedException;
 import BEBuildWeek2.Epic_Energy_Services_CRM.payloads.AuthenticationSuccessfullPayload;
 import BEBuildWeek2.Epic_Energy_Services_CRM.payloads.UserLoginPayload;
 import BEBuildWeek2.Epic_Energy_Services_CRM.payloads.UserRegistrationPayload;
@@ -30,7 +32,7 @@ public class AuthController {
 	@Autowired
 	private PasswordEncoder bcrypt;
 	
-	@PostMapping("/register")
+	@PostMapping("/registration")
 	public ResponseEntity<Utente> register(@RequestBody @Validated UserRegistrationPayload body) {
 		body.setPassword(bcrypt.encode(body.getPassword()));
 
@@ -39,7 +41,7 @@ public class AuthController {
 	}
 	
 	@PostMapping("/login")
-	public ResponseEntity<AuthenticationSuccessfullPayload> login(@RequestBody UserLoginPayload body) throws NotFoundException{
+	public ResponseEntity<AuthenticationSuccessfullPayload> login(@RequestBody UserLoginPayload body) throws NotFoundException, org.springframework.data.crossstore.ChangeSetPersister.NotFoundException{
 		
 		//cerco la mail inserita nel login tra quelle degli utenti
 		Utente user = usersService.findUtenteByEmail(body.getEmailUtente());

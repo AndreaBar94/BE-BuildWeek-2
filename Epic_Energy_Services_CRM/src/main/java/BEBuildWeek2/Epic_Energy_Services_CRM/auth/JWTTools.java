@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import BEBuildWeek2.Epic_Energy_Services_CRM.entities.Utente;
+import BEBuildWeek2.Epic_Energy_Services_CRM.exceptions.UnauthorizedException;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;

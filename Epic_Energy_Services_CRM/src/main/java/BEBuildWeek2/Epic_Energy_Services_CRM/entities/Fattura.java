@@ -14,7 +14,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Entity
-@JsonIgnoreProperties({ "" })
 @EqualsAndHashCode
 @Data
 public class Fattura {

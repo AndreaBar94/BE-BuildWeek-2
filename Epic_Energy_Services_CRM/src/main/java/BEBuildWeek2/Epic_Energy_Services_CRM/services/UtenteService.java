@@ -45,9 +45,7 @@ public class UtenteService {
 																					// found!"));
 	}
 
-	public Utente findUtenteByIdAndUpdate(UUID id, UserRegistrationPayload u) throws NotFoundException { // throws
-																											// NotFoundException
-																											// {
+	public Utente findUtenteByIdAndUpdate(UUID id, UserRegistrationPayload u) throws NotFoundException {
 		Utente foundUser = this.findUtenteById(id);
 		foundUser.setIdUtente(id);
 		foundUser.setUsername(u.getNickname());
@@ -57,12 +55,12 @@ public class UtenteService {
 		return utenteRepo.save(foundUser);
 	}
 
-	public void findUtenteByIdAndDelete(UUID id) throws NotFoundException { // throws NotFoundException {
+	public void findUtenteByIdAndDelete(UUID id) throws NotFoundException {
 		Utente foundUtente = this.findUtenteById(id);
 		utenteRepo.delete(foundUtente);
 	}
 
-	public Optional<Utente> findUtenteByEmail(String email) { // throws NotFoundException {
-		return utenteRepo.findByEmailUtente(email); // .orElseThrow(() -> new NotFoundException("User not found!"));
+	public Utente findUtenteByEmail(String email)throws NotFoundException {
+		return utenteRepo.findByEmailUtente(email).orElseThrow(() -> new NotFoundException());
 	}
 }

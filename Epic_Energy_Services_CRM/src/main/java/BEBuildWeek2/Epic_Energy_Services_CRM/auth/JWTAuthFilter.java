@@ -1,6 +1,7 @@
 package BEBuildWeek2.Epic_Energy_Services_CRM.auth;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,6 +12,8 @@ import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import BEBuildWeek2.Epic_Energy_Services_CRM.entities.Utente;
+import BEBuildWeek2.Epic_Energy_Services_CRM.exceptions.NotFoundException;
+import BEBuildWeek2.Epic_Energy_Services_CRM.exceptions.UnauthorizedException;
 import BEBuildWeek2.Epic_Energy_Services_CRM.services.UtenteService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -57,6 +60,9 @@ public class JWTAuthFilter extends OncePerRequestFilter{
 			
 		}catch (NotFoundException e){
 			//se non trova l'utente lancia un not found
+			e.printStackTrace();
+		} catch (org.springframework.data.crossstore.ChangeSetPersister.NotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		} else {
