@@ -4,8 +4,6 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.UUID;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import BEBuildWeek2.Epic_Energy_Services_CRM.utils.StatoFattura;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,7 +17,6 @@ import lombok.EqualsAndHashCode;
 @Data
 public class Fattura {
 	@Id
-	@JsonIgnoreProperties({ "" })
 	@GeneratedValue
 	private UUID idFattura;
 	private int numeroFattura;
