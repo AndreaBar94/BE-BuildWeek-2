@@ -58,8 +58,8 @@ public class Cliente {
 	private Indirizzo indirizzo;
 
 	public Cliente(UUID idCliente, String partitaIva, TipoCliente tipoCliente, String emailCliente,
-			Date dataInserimento, Date dataUltimoContatto, Double fatturatoAnnuale, String pec, Integer telefono,
-			List<Fattura> fatture, Utente emailUtente, Utente nome, Utente cognome, Indirizzo indirizzo) {
+			Date dataInserimento, Date dataUltimoContatto, Double fatturatoAnnuale, String pec, Integer telefono, List<Fattura> fatture,
+			Utente emailUtente, Utente nome, Utente cognome, Indirizzo indirizzo) {
 		super();
 		this.idCliente = idCliente;
 		this.partitaIva = partitaIva;

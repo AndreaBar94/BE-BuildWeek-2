@@ -8,14 +8,17 @@ import BEBuildWeek2.Epic_Energy_Services_CRM.utils.StatoFattura;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Entity
-
+@JsonIgnoreProperties({ "" })
 @EqualsAndHashCode
 @Data
 public class Fattura {
+	
 	@Id
 	@GeneratedValue
 	private UUID idFattura;
@@ -24,5 +27,8 @@ public class Fattura {
 	private Date data;
 	private BigDecimal importo;
 	private StatoFattura state;
-
+	
+	@ManyToOne
+	@JoinColumn(name = "cliente_id")
+	private Cliente cliente;
 }

@@ -23,7 +23,7 @@ public class Provincia {
 
 	private String regione;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "siglaProvincia")
 	private List<Comune> comune;
 
 	
