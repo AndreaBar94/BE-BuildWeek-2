@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,9 +33,10 @@ public class ClienteController {
 		this.clienteService = clienteService;
 	}
 
-	@GetMapping
-	public List<Cliente> getAllClienti() {
-		return clienteService.getAllClienti();
+	@GetMapping("")
+	public Page<Cliente> getAllClienti(@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "idCliente") String sortBy) {
+		return clienteService.getAllClienti(page, size, sortBy);
 	}
 
 	@GetMapping("/{clienteId}")

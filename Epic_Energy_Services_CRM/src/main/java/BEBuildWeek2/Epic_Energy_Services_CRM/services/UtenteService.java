@@ -62,4 +62,7 @@ public class UtenteService {
 	public Utente findUtenteByEmail(String email)throws NotFoundException {
 		return utenteRepo.findByEmailUtente(email).orElseThrow(() -> new NotFoundException());
 	}
+
+
+
 }
