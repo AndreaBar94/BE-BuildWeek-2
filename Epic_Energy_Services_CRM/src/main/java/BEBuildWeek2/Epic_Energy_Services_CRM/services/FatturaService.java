@@ -55,4 +55,25 @@ public class FatturaService {
 	public void deleteFattura(UUID id) {
 		fatturaRepository.deleteById(id);
 	}
+
+	public List<Fattura> findFatturaByCliente(UUID clienteId) {
+		return fatturaRepository.findByClienteId(clienteId);
+	}
+
+	public List<Fattura> findFatturaByStato(String stato) {
+		return fatturaRepository.findByStato(stato);
+	}
+
+	public List<Fattura> findFatturaByData(Date data) {
+		return fatturaRepository.findByData(data);
+	}
+
+	public List<Fattura> findFatturaByAnno(int anno) {
+		return fatturaRepository.findByAnno(anno);
+	}
+
+	public List<Fattura> findFatturaByRangeImporto(BigDecimal minImporto, BigDecimal maxImporto) {
+		return fatturaRepository.findByImportoBetween(minImporto, maxImporto);
+	}
+
 }
