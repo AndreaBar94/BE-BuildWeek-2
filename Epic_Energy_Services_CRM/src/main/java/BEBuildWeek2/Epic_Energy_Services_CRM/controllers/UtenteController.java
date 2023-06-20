@@ -35,19 +35,19 @@ public class UtenteController {
 	}
 
 	@GetMapping("")
-	public Page<Utente> getUtente(@RequestParam(defaultValue = "0") int page,
-			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String sortBy) {
+	public Page<Utente> getUtenti(@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "idUtente") String sortBy) {
 		return utenteService.findAllUtenti(page, size, sortBy);
 	}
 
 	@GetMapping("/{utenteId}")
-	public Utente getUtente(@PathVariable UUID utenteId) throws Exception {
+	public Utente getUtenteById(@PathVariable UUID utenteId) throws NotFoundException {
 		return utenteService.findUtenteById(utenteId);
 	}
 
 	@PutMapping("/{utenteId}")
 	public Utente updateUtente(@PathVariable UUID utenteId, @RequestBody UserRegistrationPayload body)
-			throws Exception {
+			throws NotFoundException {
 		return utenteService.findUtenteByIdAndUpdate(utenteId, body);
 	}
 
