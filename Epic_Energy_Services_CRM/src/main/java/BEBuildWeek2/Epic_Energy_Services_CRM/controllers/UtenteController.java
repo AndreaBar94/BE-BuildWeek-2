@@ -1,6 +1,5 @@
 package BEBuildWeek2.Epic_Energy_Services_CRM.controllers;
 
-import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,30 +27,30 @@ import BEBuildWeek2.Epic_Energy_Services_CRM.services.UtenteService;
 public class UtenteController {
 	@Autowired
 	private UtenteService utenteService;
-	
+
 	@PostMapping("")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Utente saveUtente(@RequestBody @Validated UserRegistrationPayload body) {
 		return utenteService.createUtente(body);
 	}
-	
+
 	@GetMapping("")
 	public Page<Utente> getUtente(@RequestParam(defaultValue = "0") int page,
-				@RequestParam(defaultValue = "10") int size, 
-				@RequestParam(defaultValue ="id") String sortBy) {
+			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String sortBy) {
 		return utenteService.findAllUtenti(page, size, sortBy);
 	}
-	
+
 	@GetMapping("/{utenteId}")
 	public Utente getUtente(@PathVariable UUID utenteId) throws Exception {
 		return utenteService.findUtenteById(utenteId);
 	}
-	
+
 	@PutMapping("/{utenteId}")
-	public Utente updateUtente(@PathVariable UUID utenteId, @RequestBody UserRegistrationPayload body) throws Exception {
+	public Utente updateUtente(@PathVariable UUID utenteId, @RequestBody UserRegistrationPayload body)
+			throws Exception {
 		return utenteService.findUtenteByIdAndUpdate(utenteId, body);
 	}
-	
+
 	@DeleteMapping("/{utenteId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteUtente(@PathVariable UUID utenteId) throws NotFoundException {
