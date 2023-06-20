@@ -37,7 +37,12 @@ public class SecurityConfig {
 	        auth.requestMatchers(HttpMethod.GET, "/clienti").hasAnyAuthority("USER", "ADMIN");
 	        auth.requestMatchers("/clienti/**").hasAuthority("ADMIN");
 	    });
-
+		
+		http.authorizeHttpRequests(auth -> {
+	        auth.requestMatchers(HttpMethod.GET, "/fatture").hasAnyAuthority("USER", "ADMIN");
+	        auth.requestMatchers("/fatture/**").hasAuthority("ADMIN");
+	    });
+		
 		http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
 		http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
