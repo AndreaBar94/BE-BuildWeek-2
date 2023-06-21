@@ -44,7 +44,7 @@ public class FatturaRunner implements CommandLineRunner{
 			fattura.setImporto(importo);
 			fattura.setState(state);
 			
-			fatturaService.createFattura(fattura);
+			//fatturaService.createFattura(fattura);
 			
 		}
 	}

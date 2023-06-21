@@ -30,7 +30,7 @@ public class IndirizzoRunner implements CommandLineRunner{
 			indirizzo.setVia(via);
 			indirizzo.setCivico(civico);
 			indirizzo.setCap(cap);
-			// indirizzoService.createIndirizzo()
+			//indirizzoService.createIndirizzo(indirizzo);
 		}	
 	}
 

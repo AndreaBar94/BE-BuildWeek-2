@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import BEBuildWeek2.Epic_Energy_Services_CRM.entities.Indirizzo;
+import BEBuildWeek2.Epic_Energy_Services_CRM.payloads.IndirizzoPayload;
 import BEBuildWeek2.Epic_Energy_Services_CRM.services.IndirizzoService;
 
 @RestController
@@ -37,7 +38,7 @@ public class IndirizzoController {
 	}
 
 	@PostMapping
-	public Indirizzo createIndirizzo(@RequestBody Indirizzo indirizzo) {
+	public Indirizzo createIndirizzo(@RequestBody IndirizzoPayload indirizzo) {
 		return indirizzoService.createIndirizzo(indirizzo);
 	}
 

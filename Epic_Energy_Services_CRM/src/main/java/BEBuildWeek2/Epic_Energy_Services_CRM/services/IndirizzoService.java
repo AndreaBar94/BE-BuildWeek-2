@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import BEBuildWeek2.Epic_Energy_Services_CRM.entities.Indirizzo;
+import BEBuildWeek2.Epic_Energy_Services_CRM.payloads.IndirizzoPayload;
 import BEBuildWeek2.Epic_Energy_Services_CRM.repositories.IndirizzoRepository;
 
 @Service
@@ -26,7 +27,8 @@ public class IndirizzoService {
 		return indirizzoRepository.findById(idIndirizzo).orElse(null);
 	}
 
-	public Indirizzo createIndirizzo(Indirizzo indirizzo) {
+	public Indirizzo createIndirizzo(IndirizzoPayload i) {
+		Indirizzo indirizzo = new Indirizzo(i.getVia(), i.getCivico(), i.getCap());
 		return indirizzoRepository.save(indirizzo);
 	}
 

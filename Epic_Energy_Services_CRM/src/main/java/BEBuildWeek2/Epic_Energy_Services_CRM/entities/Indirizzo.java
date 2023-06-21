@@ -29,7 +29,7 @@ public class Indirizzo {
 	@JoinColumn(name = "Comune_ID")
 	private Comune comune;
 
-	public Indirizzo(String via, Integer civico, Integer cap, Provincia località, Comune comune) {
+	public Indirizzo(String via, Integer civico, Integer cap) {
 		super();
 		this.via = via;
 		this.civico = civico;
