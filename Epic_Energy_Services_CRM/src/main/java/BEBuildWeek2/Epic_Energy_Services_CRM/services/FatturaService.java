@@ -10,8 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import BEBuildWeek2.Epic_Energy_Services_CRM.entities.Fattura;
+<<<<<<< Updated upstream
 import BEBuildWeek2.Epic_Energy_Services_CRM.payloads.FatturaPayload;
 import BEBuildWeek2.Epic_Energy_Services_CRM.repositories.ClienteRepository;
+=======
+>>>>>>> Stashed changes
 import BEBuildWeek2.Epic_Energy_Services_CRM.repositories.FatturaRepository;
 import BEBuildWeek2.Epic_Energy_Services_CRM.utils.StatoFattura;
 
@@ -23,11 +26,23 @@ public class FatturaService {
 	public FatturaService(FatturaRepository fatturaRepository) {
 		this.fatturaRepository = fatturaRepository;
 	}
+
 	@Autowired
 	ClienteService clienteService;
 
+<<<<<<< Updated upstream
 	public Fattura createFattura(FatturaPayload f) {
 		Fattura fattura = new Fattura(f.getNumeroFattura(), f.getAnno(), f.getData(), f.getImporto(), f.getState());
+=======
+	public Fattura createFattura(int numeroFattura, int anno, java.util.Date data, BigDecimal importo,
+			StatoFattura stato) {
+		Fattura fattura = new Fattura();
+		fattura.setNumeroFattura(numeroFattura);
+		fattura.setAnno(anno);
+		fattura.setData(data);
+		fattura.setImporto(importo);
+		fattura.setState(stato);
+>>>>>>> Stashed changes
 		return fatturaRepository.save(fattura);
 	}
 
@@ -40,7 +55,7 @@ public class FatturaService {
 		return fatturaRepository.findAll();
 	}
 
-	public Fattura updateFattura(UUID id, int numeroFattura, int anno, Date data, BigDecimal importo,
+	public Fattura updateFattura(UUID id, int numeroFattura, int anno, java.util.Date data, BigDecimal importo,
 			StatoFattura stato) {
 		Fattura fattura = getFatturaById(id);
 		fattura.setNumeroFattura(numeroFattura);
@@ -56,7 +71,7 @@ public class FatturaService {
 	}
 
 	public List<Fattura> findFatturaByCliente(UUID idCliente) {
-		
+
 		return fatturaRepository.findByIdCliente(clienteService.getClienteById(idCliente));
 	}
 
