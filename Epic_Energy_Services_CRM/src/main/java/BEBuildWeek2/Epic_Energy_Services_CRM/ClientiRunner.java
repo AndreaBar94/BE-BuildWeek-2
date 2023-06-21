@@ -23,6 +23,12 @@ public class ClientiRunner implements CommandLineRunner {
 	@Autowired
 	private ClienteService clienteService;
 
+	@Autowired
+	private UtentiRunner utentiRunner;
+
+	@Autowired
+	private IndirizzoRunner indirizzoRunner;
+
 	@Override
 	public void run(String... args) throws Exception {
 		Faker faker = new Faker(new Locale("it"));
@@ -45,15 +51,8 @@ public class ClientiRunner implements CommandLineRunner {
 			Integer cap = Integer.parseInt(faker.address().zipCode());
 
 			// Creazione delle entità correlate
-			Utente utente = new Utente();
-			utente.setName(nomeUtente);
-			utente.setEmailUtente(emailUtente);
-			utente.setSurname(cognomeUtente);
-
-			Indirizzo indirizzo = new Indirizzo();
-			indirizzo.setVia(via);
-			indirizzo.setCivico(civico); // Parse building number to Integer
-			indirizzo.setCap(cap);
+			Utente utente = utentiRunner.getUtente();
+			Indirizzo indirizzo = indirizzoRunner.getIndirizzo();
 
 			// Creazione del cliente
 			Cliente cliente = new Cliente(partitaIva, ragioneSociale, emailCliente, dataInserimento, dataUltimoContatto,

@@ -4,8 +4,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.UUID;
 
-import org.aspectj.apache.bcel.generic.Type;
-
 import BEBuildWeek2.Epic_Energy_Services_CRM.utils.StatoFattura;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -29,7 +27,7 @@ public class Fattura {
 	private int anno;
 	private Date data;
 	private BigDecimal importo;
-	@Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.ORDINAL)
 	private StatoFattura state;
 
 	@ManyToOne
@@ -44,6 +42,5 @@ public class Fattura {
 		this.importo = importo;
 		this.state = state;
 	}
-	
-	
+
 }

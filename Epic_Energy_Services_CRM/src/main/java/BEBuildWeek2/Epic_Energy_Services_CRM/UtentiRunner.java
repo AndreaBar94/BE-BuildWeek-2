@@ -9,23 +9,25 @@ import org.springframework.stereotype.Component;
 
 import com.github.javafaker.Faker;
 
+import BEBuildWeek2.Epic_Energy_Services_CRM.entities.Utente;
 import BEBuildWeek2.Epic_Energy_Services_CRM.payloads.UserRegistrationPayload;
 import BEBuildWeek2.Epic_Energy_Services_CRM.services.UtenteService;
 
 @Component
-public class UtentiRunner implements CommandLineRunner{
-	
+public class UtentiRunner implements CommandLineRunner {
+
 	@Autowired
 	UtenteService utenteService;
 	@Autowired
 	private PasswordEncoder bcrypt;
-	
+	private Utente utente;
+
 	@Override
 	public void run(String... args) throws Exception {
-		
+
 		Faker faker = new Faker(new Locale("it"));
-		
-		for(int i = 0; i < 20; i++) {
+
+		for (int i = 0; i < 20; i++) {
 			String username = faker.name().username();
 			String nome = faker.funnyName().name();
 			String cognome = faker.name().lastName();
@@ -37,8 +39,11 @@ public class UtentiRunner implements CommandLineRunner{
 			utente.setSurname(cognome);
 			utente.setEmailUtente(emailUtente);
 			utente.setPassword(password);
-			//utenteService.createUtente(utente);
+			utenteService.createUtente(utente);
 		}
 	}
 
+	public Utente getUtente() {
+		return this.utente;
+	}
 }
