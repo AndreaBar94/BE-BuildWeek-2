@@ -34,13 +34,14 @@ public class Fattura {
 	@JoinColumn(name = "idCliente")
 	private Cliente idCliente;
 
-	public Fattura(int numeroFattura, int anno, Date data, BigDecimal importo, StatoFattura state) {
+	public Fattura(int numeroFattura, int anno, Date data, BigDecimal importo, StatoFattura state, Cliente idCliente) {
 		super();
 		this.numeroFattura = numeroFattura;
 		this.anno = anno;
 		this.data = data;
 		this.importo = importo;
 		this.state = state;
+		this.idCliente = idCliente;
 	}
 
 }

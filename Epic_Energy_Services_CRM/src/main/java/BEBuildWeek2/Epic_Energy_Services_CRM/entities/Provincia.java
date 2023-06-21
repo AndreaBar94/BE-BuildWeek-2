@@ -9,11 +9,12 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "provincia")
-//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Data
+@NoArgsConstructor
 public class Provincia {
 	
 	@Id
