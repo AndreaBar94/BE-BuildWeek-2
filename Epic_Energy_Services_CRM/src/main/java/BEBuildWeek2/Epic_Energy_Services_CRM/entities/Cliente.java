@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import BEBuildWeek2.Epic_Energy_Services_CRM.utils.TipoCliente;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -27,9 +28,9 @@ public class Cliente {
 	@GeneratedValue
 	private UUID idCliente;
 	private String partitaIva;
-	
+
 	private String ragioneSociale;
-	
+
 	@Enumerated(EnumType.STRING)
 	private TipoCliente tipoCliente;
 
@@ -38,40 +39,38 @@ public class Cliente {
 	private Date dataUltimoContatto;
 	private Double fatturatoAnnuale;
 	private String pec;
-	private Integer telefono;
+	private String telefono;
 
 	@OneToMany(mappedBy = "idCliente")
 	private List<Fattura> fatture;
 
-	@ManyToOne
-	@JoinColumn(name = "idUtente")
+	@JoinColumn(name = "id_utente")
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Utente idUtente;
 
-	
+	@JoinColumn(name = "nome_utente")
 	private String nome;
+	@JoinColumn(name = "email_utente")
 	private String emailUtente;
+	@JoinColumn(name = "cognome_utente")
 	private String cognome;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "indirizzo_id")
 	private Indirizzo indirizzo;
 
-	public Cliente(String ragioneSociale, String partitaIva, TipoCliente tipoCliente, String emailCliente,
-			Date dataInserimento, Date dataUltimoContatto, Double fatturatoAnnuale, String pec, Integer telefono, List<Fattura> fatture, Utente nome, Utente cognome, Indirizzo indirizzo) {
-		super();
-		this.ragioneSociale = ragioneSociale;
+	public Cliente(String partitaIva, String ragioneSociale, String emailCliente, Date dataInserimento,
+			Date dataUltimoContatto, Double fatturatoAnnuale, String pec, String telefono, Utente idUtente,
+			Indirizzo indirizzo) {
 		this.partitaIva = partitaIva;
-		this.tipoCliente = tipoCliente;
+		this.ragioneSociale = ragioneSociale;
 		this.emailCliente = emailCliente;
 		this.dataInserimento = dataInserimento;
 		this.dataUltimoContatto = dataUltimoContatto;
 		this.fatturatoAnnuale = fatturatoAnnuale;
 		this.pec = pec;
 		this.telefono = telefono;
-		this.fatture = fatture;
-		this.emailUtente = idUtente.getEmailUtente();
-		this.nome = idUtente.getName();
-		this.cognome = idUtente.getSurname();
+		this.idUtente = idUtente;
 		this.indirizzo = indirizzo;
 	}
 

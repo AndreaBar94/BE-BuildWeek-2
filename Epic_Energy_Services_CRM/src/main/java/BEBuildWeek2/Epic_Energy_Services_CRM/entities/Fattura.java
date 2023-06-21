@@ -1,7 +1,7 @@
 package BEBuildWeek2.Epic_Energy_Services_CRM.entities;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 import java.util.UUID;
 
 import BEBuildWeek2.Epic_Energy_Services_CRM.utils.StatoFattura;
@@ -13,9 +13,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class Fattura {
 
 	@Id
@@ -25,11 +27,20 @@ public class Fattura {
 	private int anno;
 	private Date data;
 	private BigDecimal importo;
-	@Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.ORDINAL)
 	private StatoFattura state;
 
 	@ManyToOne
 	@JoinColumn(name = "idCliente")
 	private Cliente idCliente;
+
+	public Fattura(int numeroFattura, int anno, Date data, BigDecimal importo, StatoFattura state) {
+		super();
+		this.numeroFattura = numeroFattura;
+		this.anno = anno;
+		this.data = data;
+		this.importo = importo;
+		this.state = state;
+	}
 
 }
