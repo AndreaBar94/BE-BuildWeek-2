@@ -28,7 +28,7 @@ public class IndirizzoService {
 	}
 
 	public Indirizzo createIndirizzo(IndirizzoPayload i) {
-		Indirizzo indirizzo = new Indirizzo(i.getVia(), i.getCivico(), i.getCap());
+		Indirizzo indirizzo = new Indirizzo(i.getVia(), i.getCivico(), i.getCap(), i.getLocalita(), i.getComune());
 		return indirizzoRepository.save(indirizzo);
 	}
 

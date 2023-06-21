@@ -23,18 +23,18 @@ public class Indirizzo {
 
 	@OneToOne
 	@JoinColumn(name = "Provincia_ID")
-	private Provincia località;
+	private Provincia localita;
 
 	@OneToOne
 	@JoinColumn(name = "Comune_ID")
 	private Comune comune;
 
-	public Indirizzo(String via, Integer civico, Integer cap) {
+	public Indirizzo(String via, Integer civico, Integer cap, Provincia localita, Comune comune) {
 		super();
 		this.via = via;
 		this.civico = civico;
 		this.cap = cap;
-		this.località = località;
+		this.localita = localita;
 		this.comune = comune;
 	}
 
