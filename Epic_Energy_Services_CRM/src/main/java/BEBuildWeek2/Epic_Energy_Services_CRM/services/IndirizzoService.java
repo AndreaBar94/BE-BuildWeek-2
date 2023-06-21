@@ -32,12 +32,12 @@ public class IndirizzoService {
 		return indirizzoRepository.save(indirizzo);
 	}
 
-	public Indirizzo updateIndirizzo(UUID idIndirizzo, Indirizzo indirizzo) {
-		if (indirizzoRepository.existsById(idIndirizzo)) {
-			indirizzo.setIdIndirizzo(idIndirizzo);
-			return indirizzoRepository.save(indirizzo);
-		}
-		return null;
+	public Indirizzo findIndirizzoByIdAndUpdate(UUID idIndirizzo, IndirizzoPayload indirizzo) {
+		Indirizzo foundIndirizzo = this.getIndirizzoById(idIndirizzo);
+		foundIndirizzo.setVia(indirizzo.getVia());
+		foundIndirizzo.setCivico(indirizzo.getCivico());
+		foundIndirizzo.setCap(indirizzo.getCap());
+		return indirizzoRepository.save(foundIndirizzo);
 	}
 
 	public void deleteIndirizzo(UUID idIndirizzo) {

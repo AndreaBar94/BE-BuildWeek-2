@@ -9,34 +9,34 @@ import java.sql.SQLException;
 
 public class CSVImporter2 {
 	private static final String CSV_FILE_PATH = "province-italiane.csv";
-    private static final String INSERT_QUERY = "INSERT INTO provincia (sigla, provincia, regione) VALUES (?, ?, ?)";
+	private static final String INSERT_QUERY = "INSERT INTO provincia (sigla, provincia, regione) VALUES (?, ?, ?)";
 
-    public static void importCSVData() {
-        try (Connection connection = DatabaseConnection.getConnection();
-             BufferedReader reader = new BufferedReader(new FileReader(CSV_FILE_PATH));
-             PreparedStatement statement = connection.prepareStatement(INSERT_QUERY)) {
-        	
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] data = line.split(";");
-                
-                // Imposta i parametri per l'inserimento dei dati nella query preparata
-                statement.setString(1, data[0]);
-                statement.setString(2, data[1]);
-                statement.setString(3, data[2]);
+	public static void importCSVData() {
+		try (Connection connection = DatabaseConnection.getConnection();
+				BufferedReader reader = new BufferedReader(new FileReader(CSV_FILE_PATH));
+				PreparedStatement statement = connection.prepareStatement(INSERT_QUERY)) {
 
-                // Esegui l'inserimento dei dati
-                statement.executeUpdate();
-            }
+			String line;
+			while ((line = reader.readLine()) != null) {
+				String[] data = line.split(";");
 
-            System.out.println("Importazione province CSV completata.");
+				// Imposta i parametri per l'inserimento dei dati nella query preparata
+				statement.setString(1, data[0]);
+				statement.setString(2, data[1]);
+				statement.setString(3, data[2]);
 
-        } catch (IOException | SQLException e) {
-            e.printStackTrace();
-        }
-    }
+				// Esegui l'inserimento dei dati
+				statement.executeUpdate();
+			}
 
-    public static void main(String[] args) {
-        //importCSVData();
-    }
+			System.out.println("Importazione province CSV completata.");
+
+		} catch (IOException | SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void main(String[] args) {
+		importCSVData();
+	}
 }
