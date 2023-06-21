@@ -44,7 +44,7 @@ public class Cliente {
 	private List<Fattura> fatture;
 
 	@ManyToOne
-	@JoinColumn(name = "utente_email")
+	@JoinColumn(name = "idUtente")
 	private Utente idUtente;
 
 	
