@@ -23,7 +23,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import BEBuildWeek2.Epic_Energy_Services_CRM.entities.Comune;
 import BEBuildWeek2.Epic_Energy_Services_CRM.entities.Indirizzo;
+import BEBuildWeek2.Epic_Energy_Services_CRM.entities.Provincia;
 import BEBuildWeek2.Epic_Energy_Services_CRM.entities.Utente;
 import BEBuildWeek2.Epic_Energy_Services_CRM.payloads.IndirizzoPayload;
 import BEBuildWeek2.Epic_Energy_Services_CRM.payloads.UserRegistrationPayload;
@@ -48,7 +50,7 @@ class EpicEnergyServicesCrmApplicationTests {
 	
 	List<Indirizzo> indirizzi = new ArrayList<>();
 	UUID idIndirizzo = UUID.randomUUID();
-	Indirizzo indirizzoProva = new Indirizzo("Via Prova", 10, 00166);
+	Indirizzo indirizzoProva = new Indirizzo("Via Prova", 10, 00166, new Provincia(), new Comune());
 
 	// variabili che si possono ripetere molte volte
 	UUID idUtente = UUID.randomUUID();
@@ -214,7 +216,7 @@ class EpicEnergyServicesCrmApplicationTests {
 	public void testFindIndirizzoIdAndUpdate() {
 	    // Dati di prova
 	    UUID idIndirizzo = UUID.randomUUID();
-	    Indirizzo indirizzoProva = new Indirizzo("Via Prova 2", 10, 00166);
+	    Indirizzo indirizzoProva = new Indirizzo("Via Prova 2", 10, 00166, new Provincia(), new Comune());
 	    indirizzoProva.setIdIndirizzo(idIndirizzo);
 
 	    // Dati di aggiornamento
