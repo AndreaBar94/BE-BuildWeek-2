@@ -170,9 +170,16 @@ public class GeneralRunner implements CommandLineRunner {
 		// comuni)
 		List<Comune> comuni = comuneService.getAllComuni();
 
+		// Verifica se la lista dei comuni è vuota
+		if (comuni.isEmpty()) {
+			throw new IllegalStateException(
+					"La lista dei comuni è vuota. Assicurati che ci siano comuni nel database.");
+		}
+
 		// Ottieni un comune casuale dalla lista
 		Random random = new Random();
 		int randomIndex = random.nextInt(comuni.size());
 		return comuni.get(randomIndex);
 	}
+
 }

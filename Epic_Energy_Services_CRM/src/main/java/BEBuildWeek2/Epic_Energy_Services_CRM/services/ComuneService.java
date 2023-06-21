@@ -11,10 +11,9 @@ import BEBuildWeek2.Epic_Energy_Services_CRM.repositories.ComuneRepository;
 
 @Service
 public class ComuneService {
-
+	@Autowired
 	private final ComuneRepository comuneRepository;
 
-	@Autowired
 	public ComuneService(ComuneRepository comuneRepository) {
 		this.comuneRepository = comuneRepository;
 	}

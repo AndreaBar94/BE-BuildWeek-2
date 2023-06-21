@@ -33,6 +33,8 @@ public class CSVImporter {
 				}
 
 				String nomeComune = data[2];
+				System.out.println("Nome comune: " + nomeComune);
+
 				if (comuneExists(connection, nomeComune)) {
 					System.out.println("Il comune " + nomeComune + " esiste già. Salta l'inserimento.");
 					continue;
@@ -40,12 +42,18 @@ public class CSVImporter {
 
 				try {
 					// Imposta i parametri per l'inserimento dei dati nella query preparata
-					statement.setInt(1, Integer.parseInt(data[0]));
-					statement.setInt(2, Integer.parseInt(data[1]));
+					int codiceProvincia = Integer.parseInt(data[0]);
+					int progressivoComune = Integer.parseInt(data[1]);
+					System.out.println("Codice provincia: " + codiceProvincia);
+					System.out.println("Progressivo comune: " + progressivoComune);
+
+					statement.setInt(1, codiceProvincia);
+					statement.setInt(2, progressivoComune);
 					statement.setString(3, nomeComune);
 
 					// Esegui l'inserimento dei dati
 					statement.executeUpdate();
+					System.out.println("Inserimento nel database completato.");
 				} catch (NumberFormatException e) {
 					System.out.println("Formato numerico non valido: " + line);
 				}
@@ -69,6 +77,6 @@ public class CSVImporter {
 	}
 
 	public static void main(String[] args) {
-		// importCSVData();
+		importCSVData();
 	}
 }
