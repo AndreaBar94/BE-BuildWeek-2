@@ -1,7 +1,7 @@
 package BEBuildWeek2.Epic_Energy_Services_CRM.services;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import BEBuildWeek2.Epic_Energy_Services_CRM.entities.Fattura;
+import BEBuildWeek2.Epic_Energy_Services_CRM.payloads.FatturaPayload;
 import BEBuildWeek2.Epic_Energy_Services_CRM.repositories.ClienteRepository;
 import BEBuildWeek2.Epic_Energy_Services_CRM.repositories.FatturaRepository;
 import BEBuildWeek2.Epic_Energy_Services_CRM.utils.StatoFattura;
@@ -25,13 +26,8 @@ public class FatturaService {
 	@Autowired
 	ClienteService clienteService;
 
-	public Fattura createFattura(int numeroFattura, int anno, Date data, BigDecimal importo, StatoFattura stato) {
-		Fattura fattura = new Fattura();
-		fattura.setNumeroFattura(numeroFattura);
-		fattura.setAnno(anno);
-		fattura.setData(data);
-		fattura.setImporto(importo);
-		fattura.setState(stato);
+	public Fattura createFattura(FatturaPayload f) {
+		Fattura fattura = new Fattura(f.getNumeroFattura(), f.getAnno(), f.getData(), f.getImporto(), f.getState());
 		return fatturaRepository.save(fattura);
 	}
 
