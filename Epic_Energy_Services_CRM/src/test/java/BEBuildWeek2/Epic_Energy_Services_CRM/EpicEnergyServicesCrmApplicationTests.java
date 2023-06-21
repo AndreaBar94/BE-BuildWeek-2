@@ -84,6 +84,26 @@ class EpicEnergyServicesCrmApplicationTests {
 	}
 
 	@Test
+	public void testFindUtenteById() {
+
+	}
+
+	@Test
+	public void testFindUtenteByIdAndUpdate() {
+
+	}
+
+	@Test
+	public void testFindUtenteByIdAndDelete() {
+
+	}
+
+	@Test
+	public void testFindUtenteByEmail() {
+
+	}
+
+	@Test
 	public void testGetAllIndirizzi() {
 		// Mocking the repository
 		List<Indirizzo> indirizzi = new ArrayList<>();
