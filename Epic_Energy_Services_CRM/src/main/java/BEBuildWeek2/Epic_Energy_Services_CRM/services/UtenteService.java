@@ -33,7 +33,7 @@ public class UtenteService {
 		// throw new BadRequestException("Email" + user.getEmailUtente() + "già in
 		// uso.");
 		// });
-		Utente newUtente = new Utente(u.getNickname(), u.getName(), u.getSurname(), u.getEmailUtente(),
+		Utente newUtente = new Utente(u.getUsername(), u.getName(), u.getSurname(), u.getEmailUtente(),
 				u.getPassword());
 		return utenteRepo.save(newUtente);
 	}
@@ -47,7 +47,7 @@ public class UtenteService {
 	public Utente findUtenteByIdAndUpdate(UUID id, UserRegistrationPayload u) throws NotFoundException {
 		Utente foundUser = this.findUtenteById(id);
 		foundUser.setIdUtente(id);
-		foundUser.setUsername(u.getNickname());
+		foundUser.setUsername(u.getUsername());
 		foundUser.setName(u.getName());
 		foundUser.setSurname(u.getSurname());
 		foundUser.setEmailUtente(u.getEmailUtente());

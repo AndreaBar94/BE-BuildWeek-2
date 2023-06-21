@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class UserRegistrationPayload {
-	String nickname, name, surname, emailUtente, password;
+	String username, name, surname, emailUtente, password;
 }
