@@ -68,6 +68,9 @@ public class ClientiRunner implements CommandLineRunner {
 			cliente.setPec(pec);
 			cliente.setTelefono(telefono);
 			cliente.setIdUtente(utente);
+			cliente.setNome(cognomeUtente);
+			cliente.setEmailUtente(emailUtente);
+			cliente.setCognome(cognomeUtente);
 			cliente.setIndirizzo(indirizzo);
 
 			clienteService.createCliente(cliente);
