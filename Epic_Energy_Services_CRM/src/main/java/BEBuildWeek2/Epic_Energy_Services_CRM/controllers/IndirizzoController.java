@@ -43,8 +43,8 @@ public class IndirizzoController {
 	}
 
 	@PutMapping("/{indirizzoId}")
-	public Indirizzo updateIndirizzo(@PathVariable UUID indirizzoId, @RequestBody Indirizzo indirizzo) {
-		return indirizzoService.updateIndirizzo(indirizzoId, indirizzo);
+	public Indirizzo updateIndirizzo(@PathVariable UUID indirizzoId, @RequestBody IndirizzoPayload indirizzo) {
+		return indirizzoService.findIndirizzoByIdAndUpdate(indirizzoId, indirizzo);
 	}
 
 	@DeleteMapping("/{indirizzoId}")

@@ -45,6 +45,10 @@ class EpicEnergyServicesCrmApplicationTests {
 
 	@InjectMocks
 	private IndirizzoService indirizzoService;
+	
+	List<Indirizzo> indirizzi = new ArrayList<>();
+	UUID idIndirizzo = UUID.randomUUID();
+	Indirizzo indirizzoProva = new Indirizzo("Via Prova", 10, 00166);
 
 	// variabili che si possono ripetere molte volte
 	UUID idUtente = UUID.randomUUID();
@@ -159,7 +163,7 @@ class EpicEnergyServicesCrmApplicationTests {
 	@Test
 	public void testGetAllIndirizzi() {
 		// Mocking the repository
-		List<Indirizzo> indirizzi = new ArrayList<>();
+		
 		indirizzi.add(new Indirizzo());
 		when(indirizzoRepository.findAll()).thenReturn(indirizzi);
 
@@ -176,11 +180,11 @@ class EpicEnergyServicesCrmApplicationTests {
 	@Test
 	public void testGetIndirizzoById() {
 		// Mocking the repository
-		UUID id = UUID.randomUUID();
-		when(indirizzoRepository.findById(id)).thenReturn(Optional.of(new Indirizzo()));
+		idIndirizzo = UUID.randomUUID();
+		when(indirizzoRepository.findById(idIndirizzo)).thenReturn(Optional.of(new Indirizzo()));
 
 		// Calling the service method
-		Indirizzo result = indirizzoService.getIndirizzoById(id);
+		Indirizzo result = indirizzoService.getIndirizzoById(idIndirizzo);
 
 		// Assertions
 		assertNotNull(result);
@@ -204,5 +208,55 @@ class EpicEnergyServicesCrmApplicationTests {
 		assertNotNull(result);
 		// Additional assertions based on your expected data
 
+	}
+	
+	@Test
+	public void testFindIndirizzoIdAndUpdate() {
+	    // Dati di prova
+	    UUID idIndirizzo = UUID.randomUUID();
+	    Indirizzo indirizzoProva = new Indirizzo("Via Prova 2", 10, 00166);
+	    indirizzoProva.setIdIndirizzo(idIndirizzo);
+
+	    // Dati di aggiornamento
+	    IndirizzoPayload updatedPayload = new IndirizzoPayload();
+	    updatedPayload.setVia("Nuova Via");
+
+	    // Mocking del repository
+	    when(indirizzoRepository.findById(idIndirizzo)).thenReturn(Optional.of(indirizzoProva));
+	    when(indirizzoRepository.save(Mockito.any(Indirizzo.class))).thenReturn(indirizzoProva);
+
+	    // Chiamata al metodo da testare
+	    Indirizzo result = indirizzoService.findIndirizzoByIdAndUpdate(idIndirizzo, updatedPayload);
+
+	    // Verifica dell'output
+	    assertNotNull(result);
+	    assertEquals(updatedPayload.getVia(), result.getVia());
+
+	    // Verifica delle chiamate al repository
+	    verify(indirizzoRepository, times(1)).findById(idIndirizzo);
+	    verify(indirizzoRepository, times(1)).save(Mockito.any(Indirizzo.class));
+	}
+
+	
+//	@Test
+//	public void testFindIndirizzoIdAndUpdate() {
+//		idIndirizzo = UUID.randomUUID();
+//		indirizzoProva = new Indirizzo("Via Prova 2", 10, 00166);
+//		indirizzoProva.setIdIndirizzo(idIndirizzo);
+//		
+//		IndirizzoPayload updatedPayload = new IndirizzoPayload();
+//		
+//		when(indirizzoRepository.findById(idIndirizzo)).thenReturn(Optional.of(new Indirizzo()));
+//		when(indirizzoRepository.save(Mockito.any(Indirizzo.class))).thenReturn(indirizzoProva);
+//		
+//		Indirizzo result = indirizzoService.findIndirizzoByIdAndUpdate(idIndirizzo, updatedPayload);
+//		
+//		assertNotNull(result);
+//		assertEquals(updatedPayload.getVia(), result.getVia());
+//	}
+	
+	@Test
+	public void testDeleteIndirizzo() {
+		
 	}
 }
