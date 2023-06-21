@@ -6,6 +6,8 @@ import java.util.UUID;
 
 import BEBuildWeek2.Epic_Energy_Services_CRM.utils.StatoFattura;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -23,6 +25,7 @@ public class Fattura {
 	private int anno;
 	private Date data;
 	private BigDecimal importo;
+	@Enumerated(EnumType.STRING)
 	private StatoFattura state;
 
 	@ManyToOne
