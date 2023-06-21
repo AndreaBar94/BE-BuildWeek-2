@@ -2,6 +2,8 @@ package BEBuildWeek2.Epic_Energy_Services_CRM;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -43,6 +46,10 @@ class EpicEnergyServicesCrmApplicationTests {
 	@InjectMocks
 	private IndirizzoService indirizzoService;
 
+	// variabili che si possono ripetere molte volte
+	UUID idUtente = UUID.randomUUID();
+	Utente utenteProva = new Utente("usernameProva", "nomeProva", "cognomeProva", "email@prova.it", "suPercalifragi12");
+
 	@Test
 	public void testFindAllUtenti() {
 
@@ -51,6 +58,7 @@ class EpicEnergyServicesCrmApplicationTests {
 		List<Utente> utenti = new ArrayList<>();
 		utenti.add(new Utente());
 		Page<Utente> page = new PageImpl<>(utenti, pageable, 1);
+
 		when(utenteRepository.findAll(pageable)).thenReturn(page);
 
 		// Calling the service method
@@ -84,23 +92,68 @@ class EpicEnergyServicesCrmApplicationTests {
 	}
 
 	@Test
-	public void testFindUtenteById() {
+	public void testFindUtenteById() throws NotFoundException {
+		idUtente = UUID.randomUUID();
+		utenteProva.setIdUtente(idUtente);
+
+		// mock della repo che restituisce l'utente di prova
+		when(utenteRepository.findById(idUtente)).thenReturn(Optional.of(utenteProva));
+
+		Utente result = utenteService.findUtenteById(idUtente);
+
+		assertNotNull(result);
+		assertEquals(idUtente, result.getIdUtente());
+	}
+
+	@Test
+	public void testFindUtenteByIdAndUpdate() throws NotFoundException {
+		idUtente = UUID.randomUUID();
+		utenteProva = new Utente("usernameProva2", "nomeProva", "cognomeProva", "email@prova.it", "suPercalifragi12");
+		utenteProva.setIdUtente(idUtente);
+
+		UserRegistrationPayload updatedPayload = new UserRegistrationPayload();
+
+		// Mock del repository per restituire l'utente di prova
+		when(utenteRepository.findById(idUtente)).thenReturn(Optional.of(utenteProva));
+		when(utenteRepository.save(Mockito.any(Utente.class))).thenReturn(utenteProva);
+
+		// Chiamata al metodo del servizio
+		Utente result = utenteService.findUtenteByIdAndUpdate(idUtente, updatedPayload);
+
+		// Asserzioni
+		assertNotNull(result);
+		assertEquals(updatedPayload.getUsername(), result.getUsername());
 
 	}
 
 	@Test
-	public void testFindUtenteByIdAndUpdate() {
+	public void testFindUtenteByIdAndDelete() throws NotFoundException {
+		idUtente = UUID.randomUUID();
+		utenteProva.setIdUtente(idUtente);
 
+		// Mock del repository per restituire l'utente di prova
+		when(utenteRepository.findById(idUtente)).thenReturn(Optional.of(utenteProva));
+
+		// Chiamata al metodo del servizio
+		utenteService.findUtenteByIdAndDelete(idUtente);
+
+		verify(utenteRepository, times(1)).delete(utenteProva);
 	}
 
 	@Test
-	public void testFindUtenteByIdAndDelete() {
+	public void testFindUtenteByEmail() throws NotFoundException {
+		String email = "test@example.com";
+		utenteProva = new Utente("usernameProvaEmail", "nomeProvaEmail", "cognomeProva", email, "suPercalifragi12");
 
-	}
+		// Mock del repository per restituire l'utente di prova
+		when(utenteRepository.findByEmailUtente(email)).thenReturn(Optional.of(utenteProva));
 
-	@Test
-	public void testFindUtenteByEmail() {
+		// Chiamata al metodo del servizio
+		Utente result = utenteService.findUtenteByEmail(email);
 
+		// Asserzioni
+		assertNotNull(result);
+		assertEquals(email, result.getEmailUtente());
 	}
 
 	@Test
