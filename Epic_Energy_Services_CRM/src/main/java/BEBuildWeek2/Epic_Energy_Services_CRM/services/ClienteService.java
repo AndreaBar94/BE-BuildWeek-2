@@ -36,28 +36,27 @@ public class ClienteService {
 	public Cliente getClienteById(UUID idCliente) {
 		return clienteRepository.findById(idCliente).orElse(null);
 	}
-	
+
 	public List<Cliente> findClientiByFatturatoAnnuale(Double fatturatoAnnuale) {
-	    if (fatturatoAnnuale != 0) {
-	        return clienteRepository.findClientiByFatturatoAnnuale(fatturatoAnnuale);
-	    } else {
-	        return new ArrayList<>();
-	    }
+		if (fatturatoAnnuale != 0) {
+			return clienteRepository.findClientiByFatturatoAnnuale(fatturatoAnnuale);
+		} else {
+			return new ArrayList<>();
+		}
 	}
 
-    public List<Cliente> findClientiByDataInserimento(Date dataInserimento) {
-        return clienteRepository.findClientiByDataInserimento(dataInserimento);
-    }
+	public List<Cliente> findClientiByDataInserimento(Date dataInserimento) {
+		return clienteRepository.findClientiByDataInserimento(dataInserimento);
+	}
 
-    public List<Cliente> findClientiByDataUltimoContatto(Date dataUltimoContatto) {
-        return clienteRepository.findClientiByDataUltimoContatto(dataUltimoContatto);
-    }
+	public List<Cliente> findClientiByDataUltimoContatto(Date dataUltimoContatto) {
+		return clienteRepository.findClientiByDataUltimoContatto(dataUltimoContatto);
+	}
 
-    public List<Cliente> findClientiByRagioneSociale(String ragioneSociale) {
-        return clienteRepository.findClientiByRagioneSociale(ragioneSociale);
-    }
+	public List<Cliente> findClientiByRagioneSociale(String ragioneSociale) {
+		return clienteRepository.findClientiByRagioneSociale(ragioneSociale);
+	}
 
-	
 	public Cliente createCliente(Cliente cliente) {
 		return clienteRepository.save(cliente);
 	}
@@ -73,4 +72,9 @@ public class ClienteService {
 	public void deleteCliente(UUID idCliente) {
 		clienteRepository.deleteById(idCliente);
 	}
+
+	public void deleteAllClienti() {
+		clienteRepository.deleteAll();
+	}
+
 }

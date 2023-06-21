@@ -27,7 +27,8 @@ public class FatturaService {
 	ClienteService clienteService;
 
 	public Fattura createFattura(FatturaPayload f) {
-		Fattura fattura = new Fattura(f.getNumeroFattura(), f.getAnno(), f.getData(), f.getImporto(), f.getState(), f.getIdCliente());
+		Fattura fattura = new Fattura(f.getNumeroFattura(), f.getAnno(), f.getData(), f.getImporto(), f.getState(),
+				f.getIdCliente());
 		return fatturaRepository.save(fattura);
 	}
 
@@ -74,6 +75,10 @@ public class FatturaService {
 
 	public List<Fattura> findFatturaByRangeImporto(BigDecimal minImporto, BigDecimal maxImporto) {
 		return fatturaRepository.findByImportoBetween(minImporto, maxImporto);
+	}
+
+	public void deleteAllFatture() {
+		fatturaRepository.deleteAll();
 	}
 
 }

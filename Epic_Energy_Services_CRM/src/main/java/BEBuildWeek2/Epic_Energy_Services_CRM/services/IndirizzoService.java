@@ -43,4 +43,9 @@ public class IndirizzoService {
 	public void deleteIndirizzo(UUID idIndirizzo) {
 		indirizzoRepository.deleteById(idIndirizzo);
 	}
+
+	public void deleteAllIndirizzi() {
+		indirizzoRepository.deleteAll();
+	}
+
 }

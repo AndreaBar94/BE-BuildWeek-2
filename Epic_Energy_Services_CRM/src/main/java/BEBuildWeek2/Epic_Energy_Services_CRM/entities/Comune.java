@@ -12,18 +12,17 @@ import lombok.Data;
 @Table(name = "comune")
 @Data
 public class Comune {
-	
-	@Column(name ="codice_provincia")
+
+	@Column(name = "codice_provincia")
 	private int codiceProvincia;
-	@Column(name ="progressivo_comune")
+	@Column(name = "progressivo_comune")
 	private int progressivoComune;
 	@Id
-	@Column(name ="nome")
+	@Column(name = "nome")
 	private String nome;
-	
-	
+
 	@ManyToOne
 	@JoinColumn(name = "sigla")
 	private Provincia siglaProvincia;
-	
+
 }

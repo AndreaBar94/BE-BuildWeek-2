@@ -59,10 +59,12 @@ public class UtenteService {
 		utenteRepo.delete(foundUtente);
 	}
 
-	public Utente findUtenteByEmail(String email)throws NotFoundException {
+	public Utente findUtenteByEmail(String email) throws NotFoundException {
 		return utenteRepo.findByEmailUtente(email).orElseThrow(() -> new NotFoundException());
 	}
 
-
+	public void deleteAllUtenti() {
+		utenteRepo.deleteAll();
+	}
 
 }

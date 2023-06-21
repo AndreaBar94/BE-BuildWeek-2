@@ -14,28 +14,33 @@ public class ProvinciaService {
 
 	private final ProvinciaRepository provinciaRepository;
 
-    @Autowired
-    public ProvinciaService(ProvinciaRepository provinciaRepository) {
-        this.provinciaRepository = provinciaRepository;
-    }
+	@Autowired
+	public ProvinciaService(ProvinciaRepository provinciaRepository) {
+		this.provinciaRepository = provinciaRepository;
+	}
 
-    public List<Provincia> getAllProvince() {
-        return provinciaRepository.findAll();
-    }
+	public List<Provincia> getAllProvince() {
+		return provinciaRepository.findAll();
+	}
 
-    public Optional<Provincia> getProvinciaBySigla(String sigla) {
-        return provinciaRepository.findBySigla(sigla);
-    }
+	public Optional<Provincia> getProvinciaBySigla(String sigla) {
+		return provinciaRepository.findBySigla(sigla);
+	}
 
-    public Provincia createProvincia(Provincia provincia) {
-        return provinciaRepository.save(provincia);
-    }
+	public Provincia createProvincia(Provincia provincia) {
+		return provinciaRepository.save(provincia);
+	}
 
-    public Provincia updateProvincia(Provincia provincia) {
-        return provinciaRepository.save(provincia);
-    }
+	public Provincia updateProvincia(Provincia provincia) {
+		return provinciaRepository.save(provincia);
+	}
 
-    public void deleteProvincia(String sigla) {
-        provinciaRepository.deleteBySigla(sigla);
-    }
+	public void deleteProvincia(String sigla) {
+		provinciaRepository.deleteBySigla(sigla);
+	}
+
+	public void deleteAllProvince() {
+		provinciaRepository.deleteAll();
+		;
+	}
 }

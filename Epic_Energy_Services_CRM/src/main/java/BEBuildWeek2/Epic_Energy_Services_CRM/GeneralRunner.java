@@ -25,15 +25,17 @@ import BEBuildWeek2.Epic_Energy_Services_CRM.payloads.IndirizzoPayload;
 import BEBuildWeek2.Epic_Energy_Services_CRM.payloads.UserRegistrationPayload;
 import BEBuildWeek2.Epic_Energy_Services_CRM.repositories.ComuneRepository;
 import BEBuildWeek2.Epic_Energy_Services_CRM.services.ClienteService;
+import BEBuildWeek2.Epic_Energy_Services_CRM.services.ComuneService;
 import BEBuildWeek2.Epic_Energy_Services_CRM.services.FatturaService;
 import BEBuildWeek2.Epic_Energy_Services_CRM.services.IndirizzoService;
+import BEBuildWeek2.Epic_Energy_Services_CRM.services.ProvinciaService;
 import BEBuildWeek2.Epic_Energy_Services_CRM.services.UtenteService;
 import BEBuildWeek2.Epic_Energy_Services_CRM.utils.StatoFattura;
 import BEBuildWeek2.Epic_Energy_Services_CRM.utils.TipoCliente;
 
 @Component
-public class GeneralRunner implements CommandLineRunner{
-	
+public class GeneralRunner implements CommandLineRunner {
+
 	@Autowired
 	IndirizzoService indirizzoService;
 	@Autowired
@@ -45,16 +47,27 @@ public class GeneralRunner implements CommandLineRunner{
 	@Autowired
 	ComuneRepository comuneRepository;
 	@Autowired
+	ComuneService comuneService;
+	@Autowired
+	ProvinciaService provinceService;
+	@Autowired
 	private PasswordEncoder bcrypt;
 
 	@Override
 	public void run(String... args) throws Exception {
 
+		clienteService.deleteAllClienti();
+		fatturaService.deleteAllFatture();
+		indirizzoService.deleteAllIndirizzi();
+		utenteService.deleteAllUtenti();
+		comuneRepository.deleteAll();
+		provinceService.deleteAllProvince();
+
 		Faker faker = new Faker(new Locale("it"));
 
 		for (int i = 0; i < 20; i++) {
-			
-			//SEZIONE CREAZIONE UTENTI
+
+			// SEZIONE CREAZIONE UTENTI
 			String username = faker.name().username();
 			String nome = faker.funnyName().name();
 			String cognome = faker.name().lastName();
@@ -67,8 +80,8 @@ public class GeneralRunner implements CommandLineRunner{
 			utente.setEmailUtente(emailUtente);
 			utente.setPassword(password);
 			utenteService.createUtente(utente);
-			
-			//SEZIONE CREAZIONE INDIRIZZI
+
+			// SEZIONE CREAZIONE INDIRIZZI
 			String via = faker.address().streetName();
 			Integer civico = Integer.parseInt(faker.address().buildingNumber());
 			Integer cap = Integer.parseInt(faker.address().zipCode());
@@ -78,11 +91,11 @@ public class GeneralRunner implements CommandLineRunner{
 			indirizzo.setVia(via);
 			indirizzo.setCivico(civico);
 			indirizzo.setCap(cap);
-			indirizzo.getLocalita();
-			indirizzo.getComune();
+			indirizzo.setLocalita(provincia);
+			indirizzo.setComune(comune);
 			indirizzoService.createIndirizzo(indirizzo);
-			
-			//SEZIONE CREAZIONE CLIENTI
+
+			// SEZIONE CREAZIONE CLIENTI
 			String partitaIva = faker.business().creditCardNumber();
 			String ragioneSociale = faker.company().name();
 			TipoCliente tipoCliente = getRandomTipoCliente();
@@ -92,20 +105,12 @@ public class GeneralRunner implements CommandLineRunner{
 			Double fatturatoAnnuale = faker.number().randomDouble(2, 0, 10000);
 			String pec = faker.internet().emailAddress();
 			String telefono = faker.phoneNumber().phoneNumber();
-			Utente superUser = new Utente(utente.getUsername(), utente.getName(), utente.getSurname(), utente.getEmailUtente(), utente.getPassword());
-			Indirizzo superAddress = new Indirizzo(indirizzo.getVia(), indirizzo.getCivico(), indirizzo.getCap(), indirizzo.getLocalita(), indirizzo.getComune());
-			Cliente cliente = new Cliente(
-					partitaIva,
-					ragioneSociale,
-					emailCliente,
-					dataInserimento,
-					dataUltimoContatto,
-					fatturatoAnnuale,
-					pec,
-					telefono,
-					superUser,
-					superAddress
-					);
+			Utente superUser = new Utente(utente.getUsername(), utente.getName(), utente.getSurname(),
+					utente.getEmailUtente(), utente.getPassword());
+			Indirizzo superAddress = new Indirizzo(indirizzo.getVia(), indirizzo.getCivico(), indirizzo.getCap(),
+					indirizzo.getLocalita(), indirizzo.getComune());
+			Cliente cliente = new Cliente(partitaIva, ragioneSociale, emailCliente, dataInserimento, dataUltimoContatto,
+					fatturatoAnnuale, pec, telefono, superUser, superAddress);
 			cliente.setPartitaIva(partitaIva);
 			cliente.setRagioneSociale(ragioneSociale);
 			cliente.setTipoCliente(tipoCliente);
@@ -121,8 +126,8 @@ public class GeneralRunner implements CommandLineRunner{
 			cliente.setCognome(utente.getSurname());
 			cliente.setIndirizzo(superAddress);
 			clienteService.createCliente(cliente);
-			
-			//SEZIONE CREAZIONE FATTURE
+
+			// SEZIONE CREAZIONE FATTURE
 			int numeroFattura = faker.number().randomDigit();
 			Date data = getDateInPast(100);
 			int anno = getYearFromDate(data);
@@ -140,33 +145,34 @@ public class GeneralRunner implements CommandLineRunner{
 		}
 
 	}
-	
-		private TipoCliente getRandomTipoCliente() {
-			Random random = new Random();
-			int length = TipoCliente.values().length;
-			int randomIndex = random.nextInt(length);
-			return TipoCliente.values()[randomIndex];
-		}
 
-		private Date getDateInPast(int days) {
-			Date currentDate = new Date();
-			long pastMillis = currentDate.getTime() - TimeUnit.DAYS.toMillis(days);
-			return new Date(pastMillis);
-		}
+	private TipoCliente getRandomTipoCliente() {
+		Random random = new Random();
+		int length = TipoCliente.values().length;
+		int randomIndex = random.nextInt(length);
+		return TipoCliente.values()[randomIndex];
+	}
 
-		private int getYearFromDate(Date date) {
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(date);
-			return calendar.get(Calendar.YEAR);
-		}
-		
-		private Comune getRandomComuneFromDatabase() {
-		    // Recupera una lista di comuni dal database (es. tramite il repository dei comuni)
-		    List<Comune> comuni = comuneRepository.findAll(); // Sostituisci comuneRepository con il tuo repository effettivo
+	private Date getDateInPast(int days) {
+		Date currentDate = new Date();
+		long pastMillis = currentDate.getTime() - TimeUnit.DAYS.toMillis(days);
+		return new Date(pastMillis);
+	}
 
-		    // Ottieni un comune casuale dalla lista
-		    Random random = new Random();
-		    int randomIndex = random.nextInt(comuni.size());
-		    return comuni.get(randomIndex);
-		}
+	private int getYearFromDate(Date date) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		return calendar.get(Calendar.YEAR);
+	}
+
+	private Comune getRandomComuneFromDatabase() {
+		// Recupera una lista di comuni dal database (es. tramite il repository dei
+		// comuni)
+		List<Comune> comuni = comuneService.getAllComuni();
+
+		// Ottieni un comune casuale dalla lista
+		Random random = new Random();
+		int randomIndex = random.nextInt(comuni.size());
+		return comuni.get(randomIndex);
+	}
 }

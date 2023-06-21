@@ -8,6 +8,7 @@ public class EpicEnergyServicesCrmApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(EpicEnergyServicesCrmApplication.class, args);
+
 	}
 
 }

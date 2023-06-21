@@ -37,6 +37,6 @@ public class CSVImporter2 {
 	}
 
 	public static void main(String[] args) {
-		importCSVData();
+		// importCSVData();
 	}
 }
