@@ -27,7 +27,7 @@ public class Fattura {
 	private int anno;
 	private Date data;
 	private BigDecimal importo;
-	@Enumerated(EnumType.ORDINAL)
+	@Enumerated(EnumType.STRING)
 	private StatoFattura state;
 
 	@ManyToOne
