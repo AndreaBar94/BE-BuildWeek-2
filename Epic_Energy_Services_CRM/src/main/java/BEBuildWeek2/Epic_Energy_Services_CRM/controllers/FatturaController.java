@@ -65,4 +65,31 @@ public class FatturaController {
 	public void deleteFattura(@PathVariable UUID fatturaId) {
 		fatturaService.deleteFattura(fatturaId);
 	}
+
+	@GetMapping("/clienti/{clienteId}")
+	public List<Fattura> getFattureByCliente(@PathVariable UUID clienteId) {
+		return fatturaService.findFatturaByCliente(clienteId);
+	}
+
+	@GetMapping("/state/{stato}")
+	public List<Fattura> getFattureByStato(@PathVariable String stato) {
+		return fatturaService.findFatturaByStato(stato);
+	}
+
+	@GetMapping("/data/{data}")
+	public List<Fattura> getFattureByData(@PathVariable Date data) {
+		return fatturaService.findFatturaByData(data);
+	}
+
+	@GetMapping("/anno/{anno}")
+	public List<Fattura> getFattureByAnno(@PathVariable int anno) {
+		return fatturaService.findFatturaByAnno(anno);
+	}
+
+	@GetMapping("/importo/{minImporto}/{maxImporto}")
+	public List<Fattura> getFattureByRangeImporto(@PathVariable BigDecimal minImporto,
+			@PathVariable BigDecimal maxImporto) {
+		return fatturaService.findFatturaByRangeImporto(minImporto, maxImporto);
+	}
+
 }
