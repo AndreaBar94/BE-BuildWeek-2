@@ -2,6 +2,8 @@ package BEBuildWeek2.Epic_Energy_Services_CRM.entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -29,6 +31,7 @@ public class Comune {
 	private Provincia siglaProvincia;
 	
 	@OneToMany(mappedBy = "comune")
+	@JsonIgnore
 	private List<Indirizzo> indirizzi;
 
 }

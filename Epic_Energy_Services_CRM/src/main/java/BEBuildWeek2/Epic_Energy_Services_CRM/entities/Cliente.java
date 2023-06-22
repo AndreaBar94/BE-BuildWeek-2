@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import BEBuildWeek2.Epic_Energy_Services_CRM.utils.TipoCliente;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -42,6 +44,7 @@ public class Cliente {
 	private String telefono;
 
 	@OneToMany(mappedBy = "idCliente")
+	@JsonIgnore
 	private List<Fattura> fatture;
 
 	@JoinColumn(name = "id_utente")
@@ -57,6 +60,7 @@ public class Cliente {
 
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "indirizzo_id")
+	
 	private Indirizzo indirizzo;
 
 	public Cliente(String partitaIva, String ragioneSociale, String emailCliente, Date dataInserimento,

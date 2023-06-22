@@ -22,8 +22,6 @@ public class Indirizzo {
 	private Integer civico;
 	private Integer cap;
 
-	@OneToOne
-	@JoinColumn(name = "localita")
 	private String localita;
 
 	@ManyToOne
