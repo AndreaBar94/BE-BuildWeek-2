@@ -277,7 +277,15 @@ class EpicEnergyServicesCrmApplicationTests {
 
 	@Test
 	public void testDeleteIndirizzo() {
+		// Chiamare il metodo deleteIndirizzo
+		UUID idIndirizzo = UUID.randomUUID();
+		Indirizzo indirizzoProvaDaEliminare = new Indirizzo("Via Prova 2", 10, 00166, "MI", new Comune());
+		indirizzoProvaDaEliminare.setIdIndirizzo(idIndirizzo);
 
+		// Verificare che il metodo deleteById del repository sia stato chiamato con
+		// l'id corretto
+		indirizzoService.deleteIndirizzo(idIndirizzo);
+		verify(indirizzoRepository, times(1)).deleteById(idIndirizzo);
 	}
 
 	@Test
