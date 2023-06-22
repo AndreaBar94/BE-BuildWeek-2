@@ -414,7 +414,22 @@ class EpicEnergyServicesCrmApplicationTests {
 
 	@Test
 	public void testUpdateCliente() {
+		UUID idCliente = UUID.randomUUID();
+		
+		clienteProva.setIdCliente(idCliente);
 
+		Cliente updatedPayload = new Cliente();
+
+		// Mock del repository per restituire l'utente di prova
+		when(clienteRepository.findById(idCliente)).thenReturn(Optional.of(clienteProva));
+		when(clienteRepository.save(Mockito.any(Cliente.class))).thenReturn(clienteProva);
+
+		// Chiamata al metodo del servizio
+		Cliente result = clienteService.updateCliente(idCliente, updatedPayload);
+
+		// Asserzioni
+		assertNotNull(result);
+		assertEquals(updatedPayload.getPec(), result.getPec());
 	}
 
 	@Test

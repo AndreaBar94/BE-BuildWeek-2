@@ -75,12 +75,19 @@ public class ClienteService {
 		return clienteRepository.save(cliente);
 	}
 
-	public Cliente updateCliente(UUID idCliente, Cliente cliente) {
-		if (clienteRepository.existsById(idCliente)) {
-			cliente.setIdCliente(idCliente);
+	public Cliente updateCliente(UUID idCliente, Cliente updatedCliente) {
+			Cliente cliente = this.getClienteById(idCliente);
+			cliente.setPartitaIva(updatedCliente.getPartitaIva());
+			cliente.setRagioneSociale(updatedCliente.getRagioneSociale());
+			cliente.setEmailCliente(updatedCliente.getEmailCliente());
+			cliente.setDataInserimento(updatedCliente.getDataInserimento());
+			cliente.setDataUltimoContatto(updatedCliente.getDataUltimoContatto());
+			cliente.setFatturatoAnnuale(updatedCliente.getFatturatoAnnuale());
+			cliente.setPec(updatedCliente.getPec());
+			cliente.setTelefono(updatedCliente.getTelefono());
+			cliente.setIdUtente(updatedCliente.getIdUtente());
+			cliente.setIndirizzo(updatedCliente.getIndirizzo());
 			return clienteRepository.save(cliente);
-		}
-		return null;
 	}
 
 	public void deleteCliente(UUID idCliente) {
