@@ -2,7 +2,6 @@ package BEBuildWeek2.Epic_Energy_Services_CRM.services;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 
@@ -101,7 +100,8 @@ public class FatturaService {
 		return fatturaRepository.findByAnno(pageable, anno);
 	}
 
-	public Page<Fattura> findFatturaByRangeImporto(int page, int size, String sortBy, BigDecimal minImporto, BigDecimal maxImporto) {
+	public Page<Fattura> findFatturaByRangeImporto(int page, int size, String sortBy, BigDecimal minImporto,
+			BigDecimal maxImporto) {
 		if (size < 0)
 			size = 10;
 		if (size > 100)

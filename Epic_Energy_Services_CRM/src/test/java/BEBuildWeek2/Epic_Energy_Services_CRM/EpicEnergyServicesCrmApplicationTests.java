@@ -7,6 +7,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -41,6 +42,7 @@ import BEBuildWeek2.Epic_Energy_Services_CRM.services.ClienteService;
 import BEBuildWeek2.Epic_Energy_Services_CRM.services.FatturaService;
 import BEBuildWeek2.Epic_Energy_Services_CRM.services.IndirizzoService;
 import BEBuildWeek2.Epic_Energy_Services_CRM.services.UtenteService;
+import BEBuildWeek2.Epic_Energy_Services_CRM.utils.StatoFattura;
 
 @SpringBootTest
 class EpicEnergyServicesCrmApplicationTests {
@@ -64,6 +66,12 @@ class EpicEnergyServicesCrmApplicationTests {
 
 	@InjectMocks
 	private IndirizzoService indirizzoService;
+
+	@Mock
+	private FatturaRepository fatturaRepository;
+
+	@InjectMocks
+	private FatturaService fatturaService;
 
 	List<Indirizzo> indirizzi = new ArrayList<>();
 	UUID idIndirizzo = UUID.randomUUID();
@@ -434,8 +442,43 @@ class EpicEnergyServicesCrmApplicationTests {
 	}
 
 	@Test
-	public void testUpdateFattura() {
+	public void testUpdateFattura() throws NotFoundException {
+		// Crea una fattura di prova con ID
+		UUID idFattura = UUID.randomUUID();
+		Fattura fatturaProva = new Fattura();
+		fatturaProva.setIdFattura(idFattura);
 
+		// Definisci i dati di aggiornamento
+		FatturaPayload updatedPayload = new FatturaPayload();
+		updatedPayload.setNumeroFattura(123456);
+		updatedPayload.setImporto(BigDecimal.valueOf(100.0));
+		updatedPayload.setAnno(2023);
+		updatedPayload.setData(new Date());
+		updatedPayload.setImporto(BigDecimal.valueOf(100.0));
+		updatedPayload.setState(StatoFattura.DA_INVIARE);
+
+		// Configura il mock del repository per restituire la fattura di prova
+		when(fatturaRepository.findById(idFattura)).thenReturn(Optional.of(fatturaProva));
+		when(fatturaRepository.save(Mockito.any(Fattura.class))).thenReturn(fatturaProva);
+
+		// Chiamata al metodo da testare
+		Fattura result = fatturaService.updateFattura(idFattura, updatedPayload.getNumeroFattura(),
+				updatedPayload.getAnno(), updatedPayload.getData(), updatedPayload.getImporto(),
+				updatedPayload.getState());
+
+		// Verifica che la fattura sia stata restituita correttamente
+		assertNotNull(result);
+		assertEquals(updatedPayload.getNumeroFattura(), result.getNumeroFattura());
+		assertEquals(updatedPayload.getAnno(), result.getAnno());
+		assertEquals(updatedPayload.getData(), result.getData());
+		assertEquals(updatedPayload.getImporto(), result.getImporto());
+		assertEquals(updatedPayload.getState(), result.getState());
+
+		// Verifica che il metodo findById sia stato chiamato correttamente
+		verify(fatturaRepository, times(1)).findById(idFattura);
+
+		// Verifica che il metodo save sia stato chiamato per salvare le modifiche
+		verify(fatturaRepository, times(1)).save(Mockito.any(Fattura.class));
 	}
 
 	@Test
