@@ -34,7 +34,7 @@ public class FatturaService {
 				f.getIdCliente());
 		return fatturaRepository.save(fattura);
 	}
-
+	
 	public Fattura getFatturaById(UUID id) {
 		return fatturaRepository.findById(id)
 				.orElseThrow(() -> new NoSuchElementException("Fattura non trovata con ID: " + id));

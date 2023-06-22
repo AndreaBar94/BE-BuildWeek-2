@@ -510,7 +510,26 @@ class EpicEnergyServicesCrmApplicationTests {
 
 	@Test
 	public void testFindFatturaByStato() {
-
+		List<Fattura> fatture = new ArrayList<>();
+		StatoFattura stato = StatoFattura.DA_INVIARE;
+		Fattura fatturaProva = new Fattura();
+		fatturaProva.setState(stato);
+		fatture.add(fatturaProva);
+		int page = 0;
+		int size = 10;
+		String sortBy = "idCliente";
+		
+		Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+		
+		when(fatturaRepository.findByState(any(Pageable.class),any())).thenReturn(new PageImpl<>(fatture));
+		when(fatturaRepository.findByState(pageable, stato))
+		.thenReturn(new PageImpl<>(fatture));
+		
+		Page<Fattura> result = fatturaService.findFatturaByStato(page, size, sortBy, stato);
+		
+		assertNotNull(result);
+		assertEquals(1, result.getTotalElements());
+		assertEquals(fatture, result.getContent());
 	}
 
 	@Test
