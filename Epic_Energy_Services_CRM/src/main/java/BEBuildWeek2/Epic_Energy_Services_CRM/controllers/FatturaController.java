@@ -1,6 +1,8 @@
 package BEBuildWeek2.Epic_Energy_Services_CRM.controllers;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -76,14 +78,16 @@ public class FatturaController {
 
 	@GetMapping("/state/{stato}")
 	public Page<Fattura> getFattureByStato(@RequestParam(defaultValue = "0") int page,
-			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "idFattura") String sortBy, @PathVariable String stato) {
+			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "idFattura") String sortBy, @PathVariable StatoFattura stato) {
 		return fatturaService.findFatturaByStato(page, size, sortBy,stato);
 	}
 
 	@GetMapping("/data/{data}")
 	public Page<Fattura> getFattureByData(@RequestParam(defaultValue = "0") int page,
-			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "idFattura") String sortBy, @PathVariable Date data) {
-		return fatturaService.findFatturaByData(page, size, sortBy,data);
+			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "data") String sortBy, @PathVariable String data) throws ParseException {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date convertedData = dateFormat.parse(data);
+		return fatturaService.findFatturaByData(page, size, sortBy, convertedData);
 	}
 
 	@GetMapping("/anno/{anno}")

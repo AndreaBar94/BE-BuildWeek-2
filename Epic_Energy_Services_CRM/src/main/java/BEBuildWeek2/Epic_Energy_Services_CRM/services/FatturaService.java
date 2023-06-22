@@ -69,7 +69,7 @@ public class FatturaService {
 		return fatturaRepository.findByIdCliente(pageable, clienteService.getClienteById(idCliente));
 	}
 
-	public Page<Fattura> findFatturaByStato(int page, int size, String sortBy, String state) {
+	public Page<Fattura> findFatturaByStato(int page, int size, String sortBy, StatoFattura state) {
 		if (size < 0)
 			size = 10;
 		if (size > 100)

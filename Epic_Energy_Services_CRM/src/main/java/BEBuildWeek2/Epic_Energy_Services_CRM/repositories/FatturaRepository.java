@@ -12,12 +12,13 @@ import org.springframework.stereotype.Repository;
 
 import BEBuildWeek2.Epic_Energy_Services_CRM.entities.Cliente;
 import BEBuildWeek2.Epic_Energy_Services_CRM.entities.Fattura;
+import BEBuildWeek2.Epic_Energy_Services_CRM.utils.StatoFattura;
 
 @Repository
 public interface FatturaRepository extends JpaRepository<Fattura, UUID> {
 	Page<Fattura> findByIdCliente(Pageable pageable, Cliente idCliente);
 
-	Page<Fattura> findByState(Pageable pageable, String state);
+	Page<Fattura> findByState(Pageable pageable, StatoFattura state);
 
 	Page<Fattura> findByData(Pageable pageable, Date data);
 
