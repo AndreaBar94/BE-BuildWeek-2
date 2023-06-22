@@ -54,10 +54,10 @@ class EpicEnergyServicesCrmApplicationTests {
 
 	@Mock
 	private IndirizzoRepository indirizzoRepository;
-	
+
 	@Mock
 	private FatturaRepository fatturaRepository;
-	
+
 	@Mock
 	private ClienteRepository clienteRepository;
 
@@ -66,9 +66,6 @@ class EpicEnergyServicesCrmApplicationTests {
 
 	@InjectMocks
 	private IndirizzoService indirizzoService;
-
-	@Mock
-	private FatturaRepository fatturaRepository;
 
 	@InjectMocks
 	private FatturaService fatturaService;
@@ -435,7 +432,7 @@ class EpicEnergyServicesCrmApplicationTests {
 		FatturaService fatturaService = new FatturaService(fatturaRepository);
 		FatturaPayload fatturaProva = new FatturaPayload();
 		when(fatturaRepository.save(Mockito.any(Fattura.class))).thenReturn(new Fattura());
-		
+
 		Fattura result = fatturaService.createFattura(fatturaProva);
 		assertNotNull(result);
 
@@ -454,7 +451,6 @@ class EpicEnergyServicesCrmApplicationTests {
 		updatedPayload.setImporto(BigDecimal.valueOf(100.0));
 		updatedPayload.setAnno(2023);
 		updatedPayload.setData(new Date());
-		updatedPayload.setImporto(BigDecimal.valueOf(100.0));
 		updatedPayload.setState(StatoFattura.DA_INVIARE);
 
 		// Configura il mock del repository per restituire la fattura di prova
