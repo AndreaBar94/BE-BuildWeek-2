@@ -182,16 +182,18 @@ class EpicEnergyServicesCrmApplicationTests {
 	@Test
 	public void testGetAllIndirizzi() throws NotFoundException {
 		// Mocking the repository
-
+		Pageable pageable = PageRequest.of(0, 10, Sort.by("sortBy"));
 		indirizzi.add(new Indirizzo());
-		when(indirizzoRepository.findAll()).thenReturn(indirizzi);
-
+		
 		// Calling the service method
-		Page<Indirizzo> result = indirizzoService.getAllIndirizzi(0, 10, "idIndirizzo");
-
+		Page<Indirizzo> page = new PageImpl<>(indirizzi, pageable, 1);
+		when(indirizzoRepository.findAll(pageable)).thenReturn(page);
+		
+		Page<Indirizzo> result = indirizzoService.getAllIndirizzi(0, 10, "sortBy");
+		
 		// Assertions
 		assertNotNull(result);
-		assertEquals(1, result.getSize());
+		assertEquals(1, result.getTotalElements());
 		// Additional assertions based on your expected data
 
 	}
@@ -399,7 +401,12 @@ class EpicEnergyServicesCrmApplicationTests {
 
 	@Test
 	public void testCreateCliente() {
+		ClienteService clienteService = new ClienteService(clienteRepository);
+		Cliente clienteProva = new Cliente();
+		when(clienteRepository.save(Mockito.any(Cliente.class))).thenReturn(new Cliente());
 
+		Cliente result = clienteService.createCliente(clienteProva);
+		assertNotNull(result);
 	}
 
 	@Test
