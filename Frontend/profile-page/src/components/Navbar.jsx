@@ -20,7 +20,7 @@ const Navbar = () => {
       </button>
 
       <div className={`collapse navbar-collapse ${isSettingsOpen ? "show" : ""}`}>
-        <ul className="navbar-nav mr-auto">
+        <ul className="navbar-nav ms-2 me-3">
           <li className="nav-item">
             <Link className="nav-link" to="/search">
               Search
@@ -28,7 +28,7 @@ const Navbar = () => {
           </li>
         </ul>
 
-        <ul className="navbar-nav ml-auto">
+        <ul className="navbar-nav">
           <li className="nav-item">
             <Link className="nav-link" to="/profile">
               Profile
