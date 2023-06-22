@@ -187,11 +187,11 @@ class EpicEnergyServicesCrmApplicationTests {
 		when(indirizzoRepository.findAll()).thenReturn(indirizzi);
 
 		// Calling the service method
-		List<Indirizzo> result = indirizzoService.getAllIndirizzi();
+		Page<Indirizzo> result = indirizzoService.getAllIndirizzi(0, 10, "idIndirizzo");
 
 		// Assertions
 		assertNotNull(result);
-		assertEquals(1, result.size());
+		assertEquals(1, result.getSize());
 		// Additional assertions based on your expected data
 
 	}
@@ -313,13 +313,16 @@ class EpicEnergyServicesCrmApplicationTests {
 		Double fatturatoProva = 5000.00;
 		clienteProva.setFatturatoAnnuale(fatturatoProva);
 		clienti.add(clienteProva);
-
-		when(clienteRepository.findClientiByFatturatoAnnuale(fatturatoProva)).thenReturn(clienti);
-
-		List<Cliente> result = clienteService.findClientiByFatturatoAnnuale(fatturatoProva);
-
+		int page = 0;
+		int size = 10;
+		String sortBy = "idCliente";
+		Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+		when(clienteRepository.findClientiByFatturatoAnnuale(fatturatoProva, pageable)).thenReturn(new PageImpl<>(clienti));
+		
+		Page<Cliente> result = clienteService.findClientiByFatturatoAnnuale(fatturatoProva, 0, 10, "idCliente");
+		
 		assertNotNull(result);
-		assertEquals(1, result.size());
+		assertEquals(1, result.getSize());
 	}
 
 	@Test
