@@ -9,5 +9,5 @@ public class IndirizzoPayload {
 	String via;
 	Integer civico, cap;
 	Comune comune;
-	Provincia localita;
+	String localita;
 }

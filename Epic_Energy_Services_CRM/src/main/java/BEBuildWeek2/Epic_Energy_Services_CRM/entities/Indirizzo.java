@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,14 +23,14 @@ public class Indirizzo {
 	private Integer cap;
 
 	@OneToOne
-	@JoinColumn(name = "Provincia_ID")
-	private Provincia localita;
+	@JoinColumn(name = "localita")
+	private String localita;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "Comune_ID")
 	private Comune comune;
 
-	public Indirizzo(String via, Integer civico, Integer cap, Provincia localita, Comune comune) {
+	public Indirizzo(String via, Integer civico, Integer cap, String localita, Comune comune) {
 		super();
 		this.via = via;
 		this.civico = civico;

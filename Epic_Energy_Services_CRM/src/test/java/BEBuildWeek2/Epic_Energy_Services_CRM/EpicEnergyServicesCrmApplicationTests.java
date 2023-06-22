@@ -50,7 +50,7 @@ class EpicEnergyServicesCrmApplicationTests {
 	
 	List<Indirizzo> indirizzi = new ArrayList<>();
 	UUID idIndirizzo = UUID.randomUUID();
-	Indirizzo indirizzoProva = new Indirizzo("Via Prova", 10, 00166, new Provincia(), new Comune());
+	Indirizzo indirizzoProva = new Indirizzo("Via Prova", 10, 00166, "MI", new Comune());
 
 	// variabili che si possono ripetere molte volte
 	UUID idUtente = UUID.randomUUID();
@@ -216,7 +216,7 @@ class EpicEnergyServicesCrmApplicationTests {
 	public void testFindIndirizzoIdAndUpdate() {
 	    // Dati di prova
 	    UUID idIndirizzo = UUID.randomUUID();
-	    Indirizzo indirizzoProva = new Indirizzo("Via Prova 2", 10, 00166, new Provincia(), new Comune());
+	    Indirizzo indirizzoProva = new Indirizzo("Via Prova 2", 10, 00166, "MI", new Comune());
 	    indirizzoProva.setIdIndirizzo(idIndirizzo);
 
 	    // Dati di aggiornamento

@@ -60,8 +60,8 @@ public class GeneralRunner implements CommandLineRunner {
 		fatturaService.deleteAllFatture();
 		indirizzoService.deleteAllIndirizzi();
 		utenteService.deleteAllUtenti();
-		comuneRepository.deleteAll();
-		provinceService.deleteAllProvince();
+//		comuneRepository.deleteAll();
+//		provinceService.deleteAllProvince();
 
 		Faker faker = new Faker(new Locale("it"));
 
@@ -86,7 +86,7 @@ public class GeneralRunner implements CommandLineRunner {
 			Integer civico = Integer.parseInt(faker.address().buildingNumber());
 			Integer cap = Integer.parseInt(faker.address().zipCode());
 			Comune comune = getRandomComuneFromDatabase();
-			Provincia provincia = comune.getSiglaProvincia();
+			String provincia = faker.address().cityPrefix();
 			IndirizzoPayload indirizzo = new IndirizzoPayload();
 			indirizzo.setVia(via);
 			indirizzo.setCivico(civico);
