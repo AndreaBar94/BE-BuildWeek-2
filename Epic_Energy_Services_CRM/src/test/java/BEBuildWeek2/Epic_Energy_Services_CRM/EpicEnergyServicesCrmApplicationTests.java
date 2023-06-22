@@ -494,7 +494,13 @@ class EpicEnergyServicesCrmApplicationTests {
 
 	@Test
 	public void testDeleteFattura() {
-
+		UUID idFattura = UUID.randomUUID();
+		FatturaPayload fatturaProva = new FatturaPayload();
+		when(fatturaRepository.save(Mockito.any(Fattura.class))).thenReturn(new Fattura());
+		Fattura result = fatturaService.createFattura(fatturaProva);
+		result.setIdFattura(idFattura);
+		fatturaService.deleteFattura(idFattura);
+		verify(fatturaRepository, times(1)).deleteById(idFattura);
 	}
 
 	@Test
