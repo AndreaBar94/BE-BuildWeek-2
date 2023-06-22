@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./components/Login";
 import Profile from "./components/Profile";
 import Navbar from "./components/Navbar";
+import Home from "./components/Home";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Navbar></Navbar>
         <Routes>
           <Route path="/profile" element={<Profile />} />
+          <Route path="/home" element={<Home />} />
         </Routes>
       </BrowserRouter>
     </div>
