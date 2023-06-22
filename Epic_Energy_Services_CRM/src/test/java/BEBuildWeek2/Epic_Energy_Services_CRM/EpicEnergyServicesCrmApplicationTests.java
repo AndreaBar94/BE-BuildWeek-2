@@ -7,6 +7,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -23,14 +24,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-import BEBuildWeek2.Epic_Energy_Services_CRM.entities.Comune;
-import BEBuildWeek2.Epic_Energy_Services_CRM.entities.Indirizzo;
-import BEBuildWeek2.Epic_Energy_Services_CRM.entities.Provincia;
-import BEBuildWeek2.Epic_Energy_Services_CRM.entities.Utente;
+import BEBuildWeek2.Epic_Energy_Services_CRM.entities.*;
 import BEBuildWeek2.Epic_Energy_Services_CRM.payloads.IndirizzoPayload;
 import BEBuildWeek2.Epic_Energy_Services_CRM.payloads.UserRegistrationPayload;
+import BEBuildWeek2.Epic_Energy_Services_CRM.repositories.ClienteRepository;
 import BEBuildWeek2.Epic_Energy_Services_CRM.repositories.IndirizzoRepository;
 import BEBuildWeek2.Epic_Energy_Services_CRM.repositories.UtenteRepository;
+import BEBuildWeek2.Epic_Energy_Services_CRM.services.ClienteService;
 import BEBuildWeek2.Epic_Energy_Services_CRM.services.IndirizzoService;
 import BEBuildWeek2.Epic_Energy_Services_CRM.services.UtenteService;
 
@@ -44,6 +44,12 @@ class EpicEnergyServicesCrmApplicationTests {
 
 	@Mock
 	private IndirizzoRepository indirizzoRepository;
+	
+	@Mock
+	private ClienteRepository clienteRepository;
+	
+	@InjectMocks
+	private ClienteService clienteService;
 
 	@InjectMocks
 	private IndirizzoService indirizzoService;
@@ -54,8 +60,10 @@ class EpicEnergyServicesCrmApplicationTests {
 
 	// variabili che si possono ripetere molte volte
 	UUID idUtente = UUID.randomUUID();
+	Date dataProva = new Date();
 	Utente utenteProva = new Utente("usernameProva", "nomeProva", "cognomeProva", "email@prova.it", "suPercalifragi12");
-
+	Cliente clienteProva = new Cliente("partitaIva", "ragioneSociale", "emailCliente", dataProva, dataProva, 100.00, "pec", "1234", utenteProva, indirizzoProva);
+	
 	@Test
 	public void testFindAllUtenti() {
 
@@ -163,7 +171,7 @@ class EpicEnergyServicesCrmApplicationTests {
 	}
 
 	@Test
-	public void testGetAllIndirizzi() {
+	public void testGetAllIndirizzi() throws NotFoundException {
 		// Mocking the repository
 		
 		indirizzi.add(new Indirizzo());
@@ -180,7 +188,7 @@ class EpicEnergyServicesCrmApplicationTests {
 	}
 
 	@Test
-	public void testGetIndirizzoById() {
+	public void testGetIndirizzoById() throws NotFoundException {
 		// Mocking the repository
 		idIndirizzo = UUID.randomUUID();
 		when(indirizzoRepository.findById(idIndirizzo)).thenReturn(Optional.of(new Indirizzo()));
@@ -259,6 +267,106 @@ class EpicEnergyServicesCrmApplicationTests {
 	
 	@Test
 	public void testDeleteIndirizzo() {
+		
+	}
+	
+	@Test
+	public void testGetAllClienti () {
+		Pageable pageable = PageRequest.of(0, 10, Sort.by("sortBy"));
+		List<Cliente> clienti = new ArrayList<>();
+		clienti.add(new Cliente());
+		Page<Cliente> page = new PageImpl<>(clienti, pageable, 1);
+
+		when(clienteRepository.findAll(pageable)).thenReturn(page);
+		
+		Page<Cliente> result = clienteService.getAllClienti(0, 10, "sortBy");
+		
+		assertNotNull(result);
+		assertEquals(1, result.getTotalElements());
+	}
+	
+	@Test
+	public void testGetClienteById() throws NotFoundException {
+		UUID idCliente = UUID.randomUUID();
+		clienteProva.setIdCliente(idCliente);
+
+		// mock della repo che restituisce l'utente di prova
+		when(clienteRepository.findById(idCliente)).thenReturn(Optional.of(clienteProva));
+
+		Cliente result = clienteService.getClienteById(idCliente);
+
+		assertNotNull(result);
+		assertEquals(idCliente, result.getIdCliente());
+	}
+	
+	@Test
+	public void testGetClientiByFatturatoAnnuale() throws NotFoundException {
+		List<Cliente> clienti = new ArrayList<>();
+		Double fatturatoProva = 5000.00;
+		clienteProva.setFatturatoAnnuale(fatturatoProva);
+		clienti.add(clienteProva);
+		
+		when(clienteRepository.findClientiByFatturatoAnnuale(fatturatoProva)).thenReturn(clienti);
+		
+		List<Cliente> result = clienteService.findClientiByFatturatoAnnuale(fatturatoProva);
+		
+		assertNotNull(result);
+		assertEquals(1, result.size());
+	}
+	
+	@Test
+	public void testGetClientiByDataInserimento() throws NotFoundException {
+		List<Cliente> clienti = new ArrayList<>();
+		clienti.add(clienteProva);
+		
+		when(clienteRepository.findClientiByDataInserimento(dataProva)).thenReturn(clienti);
+		
+		List<Cliente> result = clienteService.findClientiByDataInserimento(dataProva);
+		
+		assertNotNull(result);
+		assertEquals(1, result.size());
+	}
+	
+	@Test
+	public void testGetClientiByDataUltimoContatto() throws NotFoundException {
+		List<Cliente> clienti = new ArrayList<>();
+		clienti.add(clienteProva);
+		
+		when(clienteRepository.findClientiByDataUltimoContatto(dataProva)).thenReturn(clienti);
+		
+		List<Cliente> result = clienteService.findClientiByDataUltimoContatto(dataProva);
+		
+		assertNotNull(result);
+		assertEquals(1, result.size());
+	}
+	
+	@Test
+	public void testGetClientiByRagioneSociale() throws NotFoundException {
+		List<Cliente> clienti = new ArrayList<>();
+		String ragioneProva = "ragione prova";
+		clienteProva.setRagioneSociale(ragioneProva);
+		clienti.add(clienteProva);
+		
+		when(clienteRepository.findClientiByRagioneSociale(ragioneProva)).thenReturn(clienti);
+		
+		List<Cliente> result = clienteService.findClientiByRagioneSociale(ragioneProva);
+		
+		assertNotNull(result);
+		assertEquals(1, result.size());
+	}
+	
+	@Test
+	public void testCreateCliente() {
+		
+	}
+	
+	@Test
+	public void testUpdateCliete() {
+		
+	}
+	
+	@Test
+	public void testDeleteCliente() {
 		
 	}
 }
