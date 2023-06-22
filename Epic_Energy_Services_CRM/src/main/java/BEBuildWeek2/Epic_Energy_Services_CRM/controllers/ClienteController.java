@@ -3,7 +3,6 @@ package BEBuildWeek2.Epic_Energy_Services_CRM.controllers;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,6 @@ public class ClienteController {
 	@Autowired
 	private final ClienteService clienteService;
 
-	
 	public ClienteController(ClienteService clienteService) {
 		this.clienteService = clienteService;
 	}
@@ -43,45 +41,51 @@ public class ClienteController {
 	public Cliente getClienteById(@PathVariable UUID clienteId) {
 		return clienteService.getClienteById(clienteId);
 	}
-	
+
 	@GetMapping(params = "fatturatoAnnuale")
-	public ResponseEntity<List<Cliente>> getClientiByFatturato(@RequestParam("fatturatoAnnuale") Double fatturatoAnnuale) {
-	    List<Cliente> clienti = clienteService.findClientiByFatturatoAnnuale(fatturatoAnnuale);
-	    return ResponseEntity.ok(clienti);
+	public ResponseEntity<Page<Cliente>> getClientiByFatturato(
+			@RequestParam("fatturatoAnnuale") Double fatturatoAnnuale) {
+		Page<Cliente> clienti = clienteService.findClientiByFatturatoAnnuale(fatturatoAnnuale, 0, 20, "idCliente");
+		return ResponseEntity.ok(clienti);
 	}
-	
+
 	@GetMapping(params = "dataInserimento")
-    public ResponseEntity<List<Cliente>> getClientiByDataInserimento(@RequestParam("dataInserimento") String dataInserimento) throws ParseException {
-        //salvo data in variabile
+	public ResponseEntity<Page<Cliente>> getClientiByDataInserimento(
+			@RequestParam("dataInserimento") String dataInserimento) throws ParseException {
+		// salvo data in variabile
 		String dateString = dataInserimento;
-		//inizializzo la formattazione della data
-        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
-        //applico la formattazione della data alla stringa per ottenere oggetto di tipo Date
-        Date data = format.parse(dateString);
-        
-        List<Cliente> clientiByData = clienteService.findClientiByDataInserimento(data);
-        return ResponseEntity.ok(clientiByData);
-    }
+		// inizializzo la formattazione della data
+		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+		// applico la formattazione della data alla stringa per ottenere oggetto di tipo
+		// Date
+		Date data = format.parse(dateString);
 
-    @GetMapping(params = "ultimoContatto")
-    public ResponseEntity<List<Cliente>> getClientiByUltimoContatto(@RequestParam("ultimoContatto") String ultimoContatto) throws ParseException {
-    	//salvo data in variabile
-   		String dateString = ultimoContatto;
- 		//inizializzo la formattazione della data
-        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
-        //applico la formattazione della data alla stringa per ottenere oggetto di tipo Date
-  	    Date data = format.parse(dateString);
+		Page<Cliente> clientiByData = clienteService.findClientiByDataInserimento(data, 0, 20, "idCliente");
+		return ResponseEntity.ok(clientiByData);
+	}
 
-        List<Cliente> clienti = clienteService.findClientiByDataUltimoContatto(data);
-        return ResponseEntity.ok(clienti);
-    }
+	@GetMapping(params = "ultimoContatto")
+	public ResponseEntity<Page<Cliente>> getClientiByUltimoContatto(
+			@RequestParam("ultimoContatto") String ultimoContatto) throws ParseException {
+		// salvo data in variabile
+		String dateString = ultimoContatto;
+		// inizializzo la formattazione della data
+		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+		// applico la formattazione della data alla stringa per ottenere oggetto di tipo
+		// Date
+		Date data = format.parse(dateString);
 
-    @GetMapping(params = "ragioneSociale")
-    public ResponseEntity<List<Cliente>> findClientiByRagioneSociale(@RequestParam("ragioneSociale") String ragioneSociale) {
-        List<Cliente> clienti = clienteService.findClientiByRagioneSociale(ragioneSociale);
-        return ResponseEntity.ok(clienti);
-    }
-	
+		Page<Cliente> clienti = clienteService.findClientiByDataUltimoContatto(data, 0, 20, "idCliente");
+		return ResponseEntity.ok(clienti);
+	}
+
+	@GetMapping(params = "ragioneSociale")
+	public ResponseEntity<Page<Cliente>> findClientiByRagioneSociale(
+			@RequestParam("ragioneSociale") String ragioneSociale) {
+		Page<Cliente> clienti = clienteService.findClientiByRagioneSociale(ragioneSociale, 0, 20, "idCliente");
+		return ResponseEntity.ok(clienti);
+	}
+
 	@PostMapping
 	public Cliente createCliente(@RequestBody Cliente cliente) {
 		return clienteService.createCliente(cliente);

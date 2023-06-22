@@ -7,6 +7,10 @@ import java.util.NoSuchElementException;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import BEBuildWeek2.Epic_Energy_Services_CRM.entities.Fattura;
@@ -37,8 +41,13 @@ public class FatturaService {
 				.orElseThrow(() -> new NoSuchElementException("Fattura non trovata con ID: " + id));
 	}
 
-	public List<Fattura> getAllFatture() {
-		return fatturaRepository.findAll();
+	public Page<Fattura> getAllFatture(int page, int size, String sortBy) {
+		if (size < 0)
+			size = 10;
+		if (size > 100)
+			size = 20;
+		Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+		return fatturaRepository.findAll(pageable);
 	}
 
 	public Fattura updateFattura(UUID id, int numeroFattura, int anno, java.util.Date data, BigDecimal importo,
@@ -56,25 +65,49 @@ public class FatturaService {
 		fatturaRepository.deleteById(id);
 	}
 
-	public List<Fattura> findFatturaByCliente(UUID idCliente) {
-
-		return fatturaRepository.findByIdCliente(clienteService.getClienteById(idCliente));
+	public Page<Fattura> findFatturaByCliente(int page, int size, String sortBy, UUID idCliente) {
+		if (size < 0)
+			size = 10;
+		if (size > 100)
+			size = 20;
+		Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+		return fatturaRepository.findByIdCliente(pageable, clienteService.getClienteById(idCliente));
 	}
 
-	public List<Fattura> findFatturaByStato(String state) {
-		return fatturaRepository.findByState(state);
+	public Page<Fattura> findFatturaByStato(int page, int size, String sortBy, StatoFattura state) {
+		if (size < 0)
+			size = 10;
+		if (size > 100)
+			size = 20;
+		Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+		return fatturaRepository.findByState(pageable, state);
 	}
 
-	public List<Fattura> findFatturaByData(Date data) {
-		return fatturaRepository.findByData(data);
+	public Page<Fattura> findFatturaByData(int page, int size, String sortBy, Date data) {
+		if (size < 0)
+			size = 10;
+		if (size > 100)
+			size = 20;
+		Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+		return fatturaRepository.findByData(pageable, data);
 	}
 
-	public List<Fattura> findFatturaByAnno(int anno) {
-		return fatturaRepository.findByAnno(anno);
+	public Page<Fattura> findFatturaByAnno(int page, int size, String sortBy, int anno) {
+		if (size < 0)
+			size = 10;
+		if (size > 100)
+			size = 20;
+		Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+		return fatturaRepository.findByAnno(pageable, anno);
 	}
 
-	public List<Fattura> findFatturaByRangeImporto(BigDecimal minImporto, BigDecimal maxImporto) {
-		return fatturaRepository.findByImportoBetween(minImporto, maxImporto);
+	public Page<Fattura> findFatturaByRangeImporto(int page, int size, String sortBy, BigDecimal minImporto, BigDecimal maxImporto) {
+		if (size < 0)
+			size = 10;
+		if (size > 100)
+			size = 20;
+		Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+		return fatturaRepository.findByImportoBetween(pageable, minImporto, maxImporto);
 	}
 
 	public void deleteAllFatture() {

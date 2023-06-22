@@ -37,11 +37,21 @@ public class SecurityConfig {
 	        auth.requestMatchers(HttpMethod.GET, "/clienti").hasAnyAuthority("USER", "ADMIN");
 	        auth.requestMatchers("/clienti/**").hasAuthority("ADMIN");
 	    });
+		http.authorizeHttpRequests(auth -> {
+			auth.requestMatchers(HttpMethod.GET, "/indirizzi").hasAnyAuthority("USER", "ADMIN");
+			auth.requestMatchers("/indirizzi/**").hasAuthority("ADMIN");
+		});
 		
 		http.authorizeHttpRequests(auth -> {
-	        auth.requestMatchers(HttpMethod.GET, "/fatture").hasAnyAuthority("USER", "ADMIN");
-	        auth.requestMatchers("/fatture/**").hasAuthority("ADMIN");
-	    });
+		    auth.requestMatchers(HttpMethod.GET, "/fatture/cliente/{clienteId}").hasAnyAuthority("USER", "ADMIN");
+		    auth.requestMatchers(HttpMethod.GET, "/fatture/state/{stato}").hasAnyAuthority("USER", "ADMIN");
+		    auth.requestMatchers(HttpMethod.GET, "/fatture/data/{data}").hasAnyAuthority("USER", "ADMIN");
+		    auth.requestMatchers(HttpMethod.GET, "/fatture/anno/{anno}").hasAnyAuthority("USER", "ADMIN");
+		    auth.requestMatchers(HttpMethod.GET, "/fatture/importo/{minImporto}/{maxImporto}").hasAnyAuthority("USER", "ADMIN");
+		    auth.requestMatchers(HttpMethod.GET, "/fatture").hasAnyAuthority("USER", "ADMIN");
+		    auth.requestMatchers("/fatture/**").hasAuthority("ADMIN");
+		});
+
 		
 		http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
