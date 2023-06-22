@@ -27,14 +27,18 @@ import org.springframework.data.domain.Sort;
 
 import BEBuildWeek2.Epic_Energy_Services_CRM.entities.Cliente;
 import BEBuildWeek2.Epic_Energy_Services_CRM.entities.Comune;
+import BEBuildWeek2.Epic_Energy_Services_CRM.entities.Fattura;
 import BEBuildWeek2.Epic_Energy_Services_CRM.entities.Indirizzo;
 import BEBuildWeek2.Epic_Energy_Services_CRM.entities.Utente;
+import BEBuildWeek2.Epic_Energy_Services_CRM.payloads.FatturaPayload;
 import BEBuildWeek2.Epic_Energy_Services_CRM.payloads.IndirizzoPayload;
 import BEBuildWeek2.Epic_Energy_Services_CRM.payloads.UserRegistrationPayload;
 import BEBuildWeek2.Epic_Energy_Services_CRM.repositories.ClienteRepository;
+import BEBuildWeek2.Epic_Energy_Services_CRM.repositories.FatturaRepository;
 import BEBuildWeek2.Epic_Energy_Services_CRM.repositories.IndirizzoRepository;
 import BEBuildWeek2.Epic_Energy_Services_CRM.repositories.UtenteRepository;
 import BEBuildWeek2.Epic_Energy_Services_CRM.services.ClienteService;
+import BEBuildWeek2.Epic_Energy_Services_CRM.services.FatturaService;
 import BEBuildWeek2.Epic_Energy_Services_CRM.services.IndirizzoService;
 import BEBuildWeek2.Epic_Energy_Services_CRM.services.UtenteService;
 
@@ -48,7 +52,10 @@ class EpicEnergyServicesCrmApplicationTests {
 
 	@Mock
 	private IndirizzoRepository indirizzoRepository;
-
+	
+	@Mock
+	private FatturaRepository fatturaRepository;
+	
 	@Mock
 	private ClienteRepository clienteRepository;
 
@@ -412,6 +419,12 @@ class EpicEnergyServicesCrmApplicationTests {
 
 	@Test
 	public void testCreateFattura() {
+		FatturaService fatturaService = new FatturaService(fatturaRepository);
+		FatturaPayload fatturaProva = new FatturaPayload();
+		when(fatturaRepository.save(Mockito.any(Fattura.class))).thenReturn(new Fattura());
+		
+		Fattura result = fatturaService.createFattura(fatturaProva);
+		assertNotNull(result);
 
 	}
 
