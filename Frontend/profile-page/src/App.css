@@ -1,86 +1,85 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,500;1.400&display=swap");
 
-:root{
-    --bg: white;
-    --txt: black;
+:root {
+  --bg: white;
+  --txt: black;
 }
 
-body{
-    font-family: "Roboto", sans-serif;
+body {
+  font-family: "Roboto", sans-serif;
 }
 
-.center{
-    display: grid;
-    place-items: center;
-    margin-bottom: 30px;
+.center {
+  display: grid;
+  place-items: center;
+  margin-bottom: 30px;
 }
 
-.head-style{
-    display: grid;
-    place-items: center;
+.head-style {
+  display: grid;
+  place-items: center;
 }
 
-
-.center .cont{
-    font-weight: bold;
+.center .cont {
+  font-weight: bold;
 }
 
-a{
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-size: 15px;
-    border: 1px solid #cbd5e0;
-    border-radius: 20px;
-    padding: 12px;
-    margin-bottom: 0.5rem;
-    width: 400px;
-    color: gray;
-    text-decoration: none;
+a {
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 15px;
+  border: 1px solid #cbd5e0;
+  border-radius: 20px;
+  padding: 12px;
+  margin-bottom: 0.5rem;
+  width: 400px;
+  color: gray;
+  text-decoration: none;
 }
 
-a:nth-child(2){
-    background-color: rgb(59, 89, 152);
-    color: white;
+a:nth-child(2) {
+  background-color: rgb(59, 89, 152);
+  color: white;
 }
 
-a:nth-child(3){
-    background-color: black;
-    color: white;
+a:nth-child(3) {
+  background-color: black;
+  color: white;
 }
 
-.input-grid{
-    display: grid;
+.input-grid {
+  display: grid;
 }
 
-.form-label{
-    padding-bottom: 12px;
+.form-label {
+  padding-bottom: 12px;
 }
 
-.input{
-    border: 2px solid black;
-    padding: 15px;
-    width: 400px;
+.input {
+  border: 2px solid black;
+  padding: 15px;
+  width: 400px;
 }
 
-.input:nth-child(2){
-    margin-bottom: 15px;
+.input:nth-child(2) {
+  margin-bottom: 15px;
 }
 
-.form-down{
-    cursor: pointer;
-    font-size: 15px;
-    font-weight: lighter;
+.form-down {
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: lighter;
 }
 
-.form-down button{
-    background-color: rgb(80, 42, 187);
-    width: 435px;
-    color: white;
-    border: none;
-    padding: 12px;
-    font-size: large;
-    border-radius: 5px;
+.form-down button {
+  background-color: rgb(80, 42, 187);
+  width: 435px;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: large;
+  border-radius: 5px;
 }
 
 /*LOGIN CSS*/
@@ -122,4 +121,40 @@ a:nth-child(3){
   to {
     transform: rotate(360deg);
   }
+}
+
+.container {
+  width: 50%;
+  background-color: #0000002f;
+  padding-bottom: 30px;
+  padding-top: 20px;
+  border-radius: 20px;
+}
+
+.miniCont {
+  justify-content: space-between;
+  padding-block: 4px;
+}
+
+.text {
+  display: flex;
+  align-items: center;
+  color: white;
+}
+
+.inputText {
+  border-radius: 4px;
+  outline: none;
+}
+
+.profile {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: rgb(255, 255, 255);
+}
+
+#all {
+  background: linear-gradient(95deg, #e6baff, #61dafb);
+  height: 100vh;
+  padding-top: 20px;
 }
