@@ -184,13 +184,13 @@ class EpicEnergyServicesCrmApplicationTests {
 		// Mocking the repository
 		Pageable pageable = PageRequest.of(0, 10, Sort.by("sortBy"));
 		indirizzi.add(new Indirizzo());
-		
+
 		// Calling the service method
 		Page<Indirizzo> page = new PageImpl<>(indirizzi, pageable, 1);
 		when(indirizzoRepository.findAll(pageable)).thenReturn(page);
-		
+
 		Page<Indirizzo> result = indirizzoService.getAllIndirizzi(0, 10, "sortBy");
-		
+
 		// Assertions
 		assertNotNull(result);
 		assertEquals(1, result.getTotalElements());
@@ -257,23 +257,6 @@ class EpicEnergyServicesCrmApplicationTests {
 		verify(indirizzoRepository, times(1)).findById(idIndirizzo);
 		verify(indirizzoRepository, times(1)).save(Mockito.any(Indirizzo.class));
 	}
-
-//	@Test
-//	public void testFindIndirizzoIdAndUpdate() {
-//		idIndirizzo = UUID.randomUUID();
-//		indirizzoProva = new Indirizzo("Via Prova 2", 10, 00166);
-//		indirizzoProva.setIdIndirizzo(idIndirizzo);
-//		
-//		IndirizzoPayload updatedPayload = new IndirizzoPayload();
-//		
-//		when(indirizzoRepository.findById(idIndirizzo)).thenReturn(Optional.of(new Indirizzo()));
-//		when(indirizzoRepository.save(Mockito.any(Indirizzo.class))).thenReturn(indirizzoProva);
-//		
-//		Indirizzo result = indirizzoService.findIndirizzoByIdAndUpdate(idIndirizzo, updatedPayload);
-//		
-//		assertNotNull(result);
-//		assertEquals(updatedPayload.getVia(), result.getVia());
-//	}
 
 	@Test
 	public void testDeleteIndirizzo() {
