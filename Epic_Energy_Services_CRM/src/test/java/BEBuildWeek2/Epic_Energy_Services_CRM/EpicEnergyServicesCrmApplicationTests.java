@@ -514,13 +514,39 @@ class EpicEnergyServicesCrmApplicationTests {
 	}
 
 	@Test
-	public void testFatturaByData() {
+	public void testFindFatturaByData() {	    
+	    Date testData = new Date();
+	    List<Fattura> fatture = new ArrayList<>();
+	    fatture.add(new Fattura());
+	    fatture.add(new Fattura());
+	    Pageable pageable = PageRequest.of(0, 2, Sort.by("idFattura"));
+	    when(fatturaRepository.findByData(pageable, testData)).thenReturn(new PageImpl<>(fatture));
+	    Page<Fattura> result = fatturaService.findFatturaByData(0, 2, "idFattura", testData);
 
+	    // Assert
+	    assertNotNull(result);
+	    assertEquals(2, result.getContent().size());
+	    verify(fatturaRepository, times(1)).findByData(pageable, testData);
 	}
+
 
 	@Test
 	public void testFatturaByAnno() {
-
+		int testAnno = 2023;
+		
+		List<Fattura> fatture = new ArrayList<>();
+		fatture.add(new Fattura());
+		fatture.add(new Fattura());
+		
+		Pageable pageable = PageRequest.of(0, 2, Sort.by("idFattura"));
+	    when(fatturaRepository.findByAnno(pageable, testAnno)).thenReturn(new PageImpl<>(fatture));
+	    
+	    Page<Fattura> result = fatturaService.findFatturaByAnno(0, 2, "idFattura", testAnno);
+		
+	    assertNotNull(result);
+	    assertEquals(2, result.getContent().size());
+	    verify(fatturaRepository, times(1)).findByAnno(pageable, testAnno);
+	
 	}
 
 	@Test
