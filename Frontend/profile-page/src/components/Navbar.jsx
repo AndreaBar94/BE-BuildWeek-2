@@ -11,7 +11,7 @@ const Navbar = () => {
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light px-4">
-      <Link className="navbar-brand" to="/">
+      <Link className="navbar-brand" to="/home">
         Home
       </Link>
 
