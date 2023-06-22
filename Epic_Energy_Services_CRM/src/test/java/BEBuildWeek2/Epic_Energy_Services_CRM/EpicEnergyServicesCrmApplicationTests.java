@@ -415,7 +415,7 @@ class EpicEnergyServicesCrmApplicationTests {
 	@Test
 	public void testUpdateCliente() {
 		UUID idCliente = UUID.randomUUID();
-		
+
 		clienteProva.setIdCliente(idCliente);
 
 		Cliente updatedPayload = new Cliente();
@@ -515,98 +515,94 @@ class EpicEnergyServicesCrmApplicationTests {
 		Fattura fatturaProva = new Fattura();
 		fatturaProva.setState(stato);
 		fatture.add(fatturaProva);
-		int page = 0;
-		int size = 10;
-		String sortBy = "idCliente";
-		
+
 		Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
-		
-		when(fatturaRepository.findByState(any(Pageable.class),any())).thenReturn(new PageImpl<>(fatture));
-		when(fatturaRepository.findByState(pageable, stato))
-		.thenReturn(new PageImpl<>(fatture));
-		
+
+		when(fatturaRepository.findByState(any(Pageable.class), any())).thenReturn(new PageImpl<>(fatture));
+		when(fatturaRepository.findByState(pageable, stato)).thenReturn(new PageImpl<>(fatture));
+
 		Page<Fattura> result = fatturaService.findFatturaByStato(page, size, sortBy, stato);
-		
+
 		assertNotNull(result);
 		assertEquals(1, result.getTotalElements());
 		assertEquals(fatture, result.getContent());
 	}
 
 	@Test
-	public void testFindFatturaByData() {	    
-	    Date testData = new Date();
-	    List<Fattura> fatture = new ArrayList<>();
-	    fatture.add(new Fattura());
-	    fatture.add(new Fattura());
-	    Pageable pageable = PageRequest.of(0, 2, Sort.by("idFattura"));
-	    when(fatturaRepository.findByData(pageable, testData)).thenReturn(new PageImpl<>(fatture));
-	    Page<Fattura> result = fatturaService.findFatturaByData(0, 2, "idFattura", testData);
+	public void testFindFatturaByData() {
+		Date testData = new Date();
+		List<Fattura> fatture = new ArrayList<>();
+		fatture.add(new Fattura());
+		fatture.add(new Fattura());
+		Pageable pageable = PageRequest.of(0, 2, Sort.by("idFattura"));
+		when(fatturaRepository.findByData(pageable, testData)).thenReturn(new PageImpl<>(fatture));
+		Page<Fattura> result = fatturaService.findFatturaByData(0, 2, "idFattura", testData);
 
-	    // Assert
-	    assertNotNull(result);
-	    assertEquals(2, result.getContent().size());
-	    verify(fatturaRepository, times(1)).findByData(pageable, testData);
+		// Assert
+		assertNotNull(result);
+		assertEquals(2, result.getContent().size());
+		verify(fatturaRepository, times(1)).findByData(pageable, testData);
 	}
-
 
 	@Test
 	public void testFatturaByAnno() {
 		int testAnno = 2023;
-		
+
 		List<Fattura> fatture = new ArrayList<>();
 		fatture.add(new Fattura());
 		fatture.add(new Fattura());
-		
+
 		Pageable pageable = PageRequest.of(0, 2, Sort.by("idFattura"));
-	    when(fatturaRepository.findByAnno(pageable, testAnno)).thenReturn(new PageImpl<>(fatture));
-	    
-	    Page<Fattura> result = fatturaService.findFatturaByAnno(0, 2, "idFattura", testAnno);
-		
-	    assertNotNull(result);
-	    assertEquals(2, result.getContent().size());
-	    verify(fatturaRepository, times(1)).findByAnno(pageable, testAnno);
-	
+		when(fatturaRepository.findByAnno(pageable, testAnno)).thenReturn(new PageImpl<>(fatture));
+
+		Page<Fattura> result = fatturaService.findFatturaByAnno(0, 2, "idFattura", testAnno);
+
+		assertNotNull(result);
+		assertEquals(2, result.getContent().size());
+		verify(fatturaRepository, times(1)).findByAnno(pageable, testAnno);
+
 	}
 
 	@Test
 	public void testFatturaByRangeImporto() {
 		BigDecimal minImporto = new BigDecimal("100");
 		BigDecimal maxImporto = new BigDecimal("200");
-		
+
 		List<Fattura> fatture = new ArrayList<>();
 		fatture.add(new Fattura());
 		fatture.add(new Fattura());
-		
+
 		Pageable pageable = PageRequest.of(0, 2, Sort.by("idFattura"));
-	    when(fatturaRepository.findByImportoBetween(pageable, minImporto, maxImporto)).thenReturn(new PageImpl<>(fatture));
+		when(fatturaRepository.findByImportoBetween(pageable, minImporto, maxImporto))
+				.thenReturn(new PageImpl<>(fatture));
 
-	    Page<Fattura> result = fatturaService.findFatturaByRangeImporto(0, 2, "idFattura", minImporto, maxImporto);
+		Page<Fattura> result = fatturaService.findFatturaByRangeImporto(0, 2, "idFattura", minImporto, maxImporto);
 
-	    // Assert
-	    assertNotNull(result);
-	    assertEquals(2, result.getContent().size());
-	    verify(fatturaRepository, times(1)).findByImportoBetween(pageable, minImporto, maxImporto);
+		// Assert
+		assertNotNull(result);
+		assertEquals(2, result.getContent().size());
+		verify(fatturaRepository, times(1)).findByImportoBetween(pageable, minImporto, maxImporto);
 	}
 
 	@Test
 	public void testDeleteAllFatture() {
-		
+
 		FatturaPayload fatturaProva = new FatturaPayload();
 		FatturaPayload fatturaProva2 = new FatturaPayload();
 		FatturaPayload fatturaProva3 = new FatturaPayload();
-		
-		
+
 		when(fatturaRepository.save(Mockito.any(Fattura.class))).thenReturn(new Fattura());
 		Fattura result = fatturaService.createFattura(fatturaProva);
 		Fattura result2 = fatturaService.createFattura(fatturaProva2);
 		Fattura result3 = fatturaService.createFattura(fatturaProva3);
-		
+
 		List<Fattura> fatture = new ArrayList<>();
 		fatture.add(result);
 		fatture.add(result2);
 		fatture.add(result3);
 
 		fatturaService.deleteAllFatture();
-		verify(fatturaRepository, times(1)).deleteAll();;
+		verify(fatturaRepository, times(1)).deleteAll();
+		;
 	}
 }
