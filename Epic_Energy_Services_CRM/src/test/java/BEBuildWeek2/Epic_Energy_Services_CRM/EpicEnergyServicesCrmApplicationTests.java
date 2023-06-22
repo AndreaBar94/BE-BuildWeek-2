@@ -67,9 +67,6 @@ class EpicEnergyServicesCrmApplicationTests {
 	@InjectMocks
 	private IndirizzoService indirizzoService;
 
-	@Mock
-	private FatturaRepository fatturaRepository;
-
 	@InjectMocks
 	private FatturaService fatturaService;
 
@@ -454,7 +451,6 @@ class EpicEnergyServicesCrmApplicationTests {
 		updatedPayload.setImporto(BigDecimal.valueOf(100.0));
 		updatedPayload.setAnno(2023);
 		updatedPayload.setData(new Date());
-		updatedPayload.setImporto(BigDecimal.valueOf(100.0));
 		updatedPayload.setState(StatoFattura.DA_INVIARE);
 
 		// Configura il mock del repository per restituire la fattura di prova
