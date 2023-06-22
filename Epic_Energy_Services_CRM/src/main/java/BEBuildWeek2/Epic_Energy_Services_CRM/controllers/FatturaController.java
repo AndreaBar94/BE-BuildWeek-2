@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -66,30 +68,35 @@ public class FatturaController {
 		fatturaService.deleteFattura(fatturaId);
 	}
 
-	@GetMapping("/clienti/{clienteId}")
-	public List<Fattura> getFattureByCliente(@PathVariable UUID clienteId) {
-		return fatturaService.findFatturaByCliente(clienteId);
+	@GetMapping("/cliente/{clienteId}")
+	public Page<Fattura> getFattureByCliente(@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "idFattura") String sortBy, @PathVariable UUID clienteId) {
+		return fatturaService.findFatturaByCliente(page, size, sortBy, clienteId);
 	}
 
 	@GetMapping("/state/{stato}")
-	public List<Fattura> getFattureByStato(@PathVariable String stato) {
-		return fatturaService.findFatturaByStato(stato);
+	public Page<Fattura> getFattureByStato(@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "idFattura") String sortBy, @PathVariable String stato) {
+		return fatturaService.findFatturaByStato(page, size, sortBy,stato);
 	}
 
 	@GetMapping("/data/{data}")
-	public List<Fattura> getFattureByData(@PathVariable Date data) {
-		return fatturaService.findFatturaByData(data);
+	public Page<Fattura> getFattureByData(@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "idFattura") String sortBy, @PathVariable Date data) {
+		return fatturaService.findFatturaByData(page, size, sortBy,data);
 	}
 
 	@GetMapping("/anno/{anno}")
-	public List<Fattura> getFattureByAnno(@PathVariable int anno) {
-		return fatturaService.findFatturaByAnno(anno);
+	public Page<Fattura> getFattureByAnno(@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "idFattura") String sortBy,@PathVariable int anno) {
+		return fatturaService.findFatturaByAnno(page, size, sortBy,anno);
 	}
 
 	@GetMapping("/importo/{minImporto}/{maxImporto}")
-	public List<Fattura> getFattureByRangeImporto(@PathVariable BigDecimal minImporto,
+	public Page<Fattura> getFattureByRangeImporto(@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "idFattura") String sortBy,@PathVariable BigDecimal minImporto,
 			@PathVariable BigDecimal maxImporto) {
-		return fatturaService.findFatturaByRangeImporto(minImporto, maxImporto);
+		return fatturaService.findFatturaByRangeImporto(page, size, sortBy,minImporto, maxImporto);
 	}
 
 }

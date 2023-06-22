@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,13 +15,13 @@ import BEBuildWeek2.Epic_Energy_Services_CRM.entities.Fattura;
 
 @Repository
 public interface FatturaRepository extends JpaRepository<Fattura, UUID> {
-	List<Fattura> findByIdCliente(Cliente idCliente);
+	Page<Fattura> findByIdCliente(Pageable pageable, Cliente idCliente);
 
-	List<Fattura> findByState(String state);
+	Page<Fattura> findByState(Pageable pageable, String state);
 
-	List<Fattura> findByData(Date data);
+	Page<Fattura> findByData(Pageable pageable, Date data);
 
-	List<Fattura> findByAnno(int anno);
+	Page<Fattura> findByAnno(Pageable pageable, int anno);
 
-	List<Fattura> findByImportoBetween(BigDecimal minImporto, BigDecimal maxImporto);
+	Page<Fattura> findByImportoBetween(Pageable pageable, BigDecimal minImporto, BigDecimal maxImporto);
 }
