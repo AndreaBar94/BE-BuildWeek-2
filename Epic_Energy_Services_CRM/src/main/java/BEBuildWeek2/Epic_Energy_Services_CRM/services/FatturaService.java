@@ -41,8 +41,13 @@ public class FatturaService {
 				.orElseThrow(() -> new NoSuchElementException("Fattura non trovata con ID: " + id));
 	}
 
-	public List<Fattura> getAllFatture() {
-		return fatturaRepository.findAll();
+	public Page<Fattura> getAllFatture(int page, int size, String sortBy) {
+		if (size < 0)
+			size = 10;
+		if (size > 100)
+			size = 20;
+		Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+		return fatturaRepository.findAll(pageable);
 	}
 
 	public Fattura updateFattura(UUID id, int numeroFattura, int anno, java.util.Date data, BigDecimal importo,

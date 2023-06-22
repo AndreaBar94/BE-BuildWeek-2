@@ -39,8 +39,9 @@ public class FatturaController {
 	}
 
 	@GetMapping
-	public List<Fattura> getAllFatture() {
-		return fatturaService.getAllFatture();
+	public Page<Fattura> getAllFatture(@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "idFattura") String sortBy) {
+		return fatturaService.getAllFatture(page, size, sortBy);
 	}
 
 	@GetMapping("/{fatturaId}")
