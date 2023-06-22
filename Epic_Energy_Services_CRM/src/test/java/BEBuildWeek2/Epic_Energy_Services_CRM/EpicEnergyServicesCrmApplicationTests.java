@@ -411,4 +411,49 @@ class EpicEnergyServicesCrmApplicationTests {
 	public void testDeleteCliente() {
 
 	}
+
+	@Test
+	public void testCreateFattura() {
+
+	}
+
+	@Test
+	public void testUpdateFattura() {
+
+	}
+
+	@Test
+	public void testDeleteFattura() {
+
+	}
+
+	@Test
+	public void testFindFatturaByCliente() {
+
+	}
+
+	@Test
+	public void testFindFatturaByStato() {
+
+	}
+
+	@Test
+	public void testFatturaByData() {
+
+	}
+
+	@Test
+	public void testFatturaByAnno() {
+
+	}
+
+	@Test
+	public void testFatturaByRangeImporto() {
+
+	}
+
+	@Test
+	public void testDeleteAllFatture() {
+
+	}
 }
