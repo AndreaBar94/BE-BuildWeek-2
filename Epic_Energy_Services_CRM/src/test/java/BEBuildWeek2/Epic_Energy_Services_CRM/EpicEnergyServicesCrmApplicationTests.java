@@ -556,6 +556,23 @@ class EpicEnergyServicesCrmApplicationTests {
 
 	@Test
 	public void testDeleteAllFatture() {
+		
+		FatturaPayload fatturaProva = new FatturaPayload();
+		FatturaPayload fatturaProva2 = new FatturaPayload();
+		FatturaPayload fatturaProva3 = new FatturaPayload();
+		
+		
+		when(fatturaRepository.save(Mockito.any(Fattura.class))).thenReturn(new Fattura());
+		Fattura result = fatturaService.createFattura(fatturaProva);
+		Fattura result2 = fatturaService.createFattura(fatturaProva2);
+		Fattura result3 = fatturaService.createFattura(fatturaProva3);
+		
+		List<Fattura> fatture = new ArrayList<>();
+		fatture.add(result);
+		fatture.add(result2);
+		fatture.add(result3);
 
+		fatturaService.deleteAllFatture();
+		verify(fatturaRepository, times(1)).deleteAll();;
 	}
 }
