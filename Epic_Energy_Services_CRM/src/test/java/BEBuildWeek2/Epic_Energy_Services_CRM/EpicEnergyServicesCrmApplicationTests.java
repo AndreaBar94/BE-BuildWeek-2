@@ -3,6 +3,7 @@ package BEBuildWeek2.Epic_Energy_Services_CRM;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -503,10 +504,29 @@ class EpicEnergyServicesCrmApplicationTests {
 		verify(fatturaRepository, times(1)).deleteById(idFattura);
 	}
 
-	@Test
-	public void testFindFatturaByCliente() {
+//	@Test
+//    public void testFindFatturaByCliente() {
+//        // Mocking the necessary dependencies
+//        Pageable pageable = PageRequest.of(0, 10, Sort.by("sortBy"));
+//        UUID idCliente = UUID.randomUUID();
+//        Cliente cliente = new Cliente(); // Create a mock Cliente object
+//        when(clienteService.getClienteById(idCliente)).thenReturn(cliente);
+//        
+//        List<Fattura> fatture = new ArrayList<>();
+//	    fatture.add(new Fattura());
+//	    fatture.add(new Fattura());
+//	    
+//        Page<Fattura> expectedPage = new PageImpl<>(fatture); // Create an expected Page<Fattura> object
+//        when(fatturaRepository.findByIdCliente(pageable, cliente)).thenReturn(expectedPage);
+//
+//        // Call the method to be tested
+//        Page<Fattura> resultPage = fatturaService.findFatturaByCliente(0, 10, "sortBy", idCliente);
+//
+//        // Perform assertions
+//        assertEquals(expectedPage, resultPage);
+//    }
 
-	}
+
 
 	@Test
 	public void testFindFatturaByStato() {
@@ -515,7 +535,6 @@ class EpicEnergyServicesCrmApplicationTests {
 		Fattura fatturaProva = new Fattura();
 		fatturaProva.setState(stato);
 		fatture.add(fatturaProva);
-
 		Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
 
 		when(fatturaRepository.findByState(any(Pageable.class), any())).thenReturn(new PageImpl<>(fatture));
