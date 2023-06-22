@@ -551,7 +551,22 @@ class EpicEnergyServicesCrmApplicationTests {
 
 	@Test
 	public void testFatturaByRangeImporto() {
+		BigDecimal minImporto = new BigDecimal("100");
+		BigDecimal maxImporto = new BigDecimal("200");
+		
+		List<Fattura> fatture = new ArrayList<>();
+		fatture.add(new Fattura());
+		fatture.add(new Fattura());
+		
+		Pageable pageable = PageRequest.of(0, 2, Sort.by("idFattura"));
+	    when(fatturaRepository.findByImportoBetween(pageable, minImporto, maxImporto)).thenReturn(new PageImpl<>(fatture));
 
+	    Page<Fattura> result = fatturaService.findFatturaByRangeImporto(0, 2, "idFattura", minImporto, maxImporto);
+
+	    // Assert
+	    assertNotNull(result);
+	    assertEquals(2, result.getContent().size());
+	    verify(fatturaRepository, times(1)).findByImportoBetween(pageable, minImporto, maxImporto);
 	}
 
 	@Test
