@@ -1,8 +1,6 @@
 package BEBuildWeek2.Epic_Energy_Services_CRM.services;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,24 +35,40 @@ public class ClienteService {
 		return clienteRepository.findById(idCliente).orElse(null);
 	}
 
-	public List<Cliente> findClientiByFatturatoAnnuale(Double fatturatoAnnuale) {
+	public Page<Cliente> findClientiByFatturatoAnnuale(Double fatturatoAnnuale, int page, int size, String sortBy) {
 		if (fatturatoAnnuale != 0) {
-			return clienteRepository.findClientiByFatturatoAnnuale(fatturatoAnnuale);
+			Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+			return clienteRepository.findClientiByFatturatoAnnuale(fatturatoAnnuale, pageable);
 		} else {
-			return new ArrayList<>();
+			return Page.empty();
 		}
 	}
 
-	public List<Cliente> findClientiByDataInserimento(Date dataInserimento) {
-		return clienteRepository.findClientiByDataInserimento(dataInserimento);
+	public Page<Cliente> findClientiByDataInserimento(Date dataInserimento, int page, int size, String sortBy) {
+		if (dataInserimento != null) {
+			Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+			return clienteRepository.findClientiByDataInserimento(dataInserimento, pageable);
+		} else {
+			return Page.empty();
+		}
 	}
 
-	public List<Cliente> findClientiByDataUltimoContatto(Date dataUltimoContatto) {
-		return clienteRepository.findClientiByDataUltimoContatto(dataUltimoContatto);
+	public Page<Cliente> findClientiByDataUltimoContatto(Date dataUltimoContatto, int page, int size, String sortBy) {
+		if (dataUltimoContatto != null) {
+			Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+			return clienteRepository.findClientiByDataUltimoContatto(dataUltimoContatto, pageable);
+		} else {
+			return Page.empty();
+		}
 	}
 
-	public List<Cliente> findClientiByRagioneSociale(String ragioneSociale) {
-		return clienteRepository.findClientiByRagioneSociale(ragioneSociale);
+	public Page<Cliente> findClientiByRagioneSociale(String ragioneSociale, int page, int size, String sortBy) {
+		if (ragioneSociale != null) {
+			Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+			return clienteRepository.findClientiByRagioneSociale(ragioneSociale, pageable);
+		} else {
+			return Page.empty();
+		}
 	}
 
 	public Cliente createCliente(Cliente cliente) {
