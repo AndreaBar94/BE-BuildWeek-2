@@ -414,6 +414,11 @@ class EpicEnergyServicesCrmApplicationTests {
 
 	@Test
 	public void testDeleteCliente() {
+		UUID idCliente = UUID.randomUUID();
+		Cliente clienteProva = new Cliente();
+		clienteProva.setIdCliente(idCliente);
+		clienteService.deleteCliente(idCliente);
+		verify(clienteRepository, times(1)).deleteById(idCliente);
 
 	}
 
