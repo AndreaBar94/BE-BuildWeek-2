@@ -317,10 +317,11 @@ class EpicEnergyServicesCrmApplicationTests {
 		int size = 10;
 		String sortBy = "idCliente";
 		Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
-		when(clienteRepository.findClientiByFatturatoAnnuale(fatturatoProva, pageable)).thenReturn(new PageImpl<>(clienti));
-		
+		when(clienteRepository.findClientiByFatturatoAnnuale(fatturatoProva, pageable))
+				.thenReturn(new PageImpl<>(clienti));
+
 		Page<Cliente> result = clienteService.findClientiByFatturatoAnnuale(fatturatoProva, 0, 10, "idCliente");
-		
+
 		assertNotNull(result);
 		assertEquals(1, result.getSize());
 	}
@@ -402,7 +403,7 @@ class EpicEnergyServicesCrmApplicationTests {
 	}
 
 	@Test
-	public void testUpdateCliete() {
+	public void testUpdateCliente() {
 
 	}
 
