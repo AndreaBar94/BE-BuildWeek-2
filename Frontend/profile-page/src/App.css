@@ -38,16 +38,6 @@ a {
   text-decoration: none;
 }
 
-a:nth-child(2) {
-  background-color: rgb(59, 89, 152);
-  color: white;
-}
-
-a:nth-child(3) {
-  background-color: black;
-  color: white;
-}
-
 .input-grid {
   display: grid;
 }
