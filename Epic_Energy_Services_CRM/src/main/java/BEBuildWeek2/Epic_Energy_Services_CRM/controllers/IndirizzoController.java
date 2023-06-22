@@ -31,7 +31,7 @@ public class IndirizzoController {
 
 	@GetMapping
 	public Page<Indirizzo> getAllIndirizzi(@RequestParam(defaultValue = "0") int page,
-			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "idFattura") String sortBy) {
+			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "idIndirizzo") String sortBy) {
 		return indirizzoService.getAllIndirizzi(page, size, sortBy);
 	}
 
