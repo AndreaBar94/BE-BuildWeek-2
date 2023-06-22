@@ -1,0 +1,6 @@
+const profile = () => {
+    return(
+        <>
+        </>
+    )
+}
