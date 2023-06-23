@@ -23,6 +23,8 @@ public class UserRegistrationPayload {
     @Email(message = "Invalid email format")
     private String emailUtente;
 
-	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$", message = "Password must be at least 8 characters long and contain at least one digit, one letter, and one special character")
+	@Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\bd)(?=.*[@$!%*#?&])[A-Za-z\bd@$!%*#?&]{8,}$", 
+			message = "Password must be at least 8 characters long and contain at least one digit, one letter, and one special character")
+	@Size(min = 8, message = "Password must be at least 8 characters long")
 	private String password;
 }

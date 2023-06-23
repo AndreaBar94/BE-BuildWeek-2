@@ -33,8 +33,10 @@ const RegistrationForm = () => {
       .then((response) => response.json())
       .then((data) => {
         // Handle the registration response data
-        alert('registration ok!');
-        console.log('Registration data:', data);
+        if(data.ok){
+            alert('registration ok!');
+            console.log('Registration data:', data);
+        }
       })
       .catch((error) => {
         // Handle registration errors
@@ -72,6 +74,7 @@ const RegistrationForm = () => {
         <div className="form-group">
           <label>Username:</label>
           <input
+          required
             type="text"
             className="form-control"
             name="username"
@@ -83,6 +86,7 @@ const RegistrationForm = () => {
         <div className="form-group">
           <label>Name:</label>
           <input
+          required
             type="text"
             className="form-control"
             name="name"
@@ -94,6 +98,7 @@ const RegistrationForm = () => {
         <div className="form-group">
           <label>Surname:</label>
           <input
+          required
             type="text"
             className="form-control"
             name="surname"
@@ -105,6 +110,7 @@ const RegistrationForm = () => {
         <div className="form-group">
           <label>Email:</label>
           <input
+          required
             type="email"
             className="form-control"
             name="emailUtente"
@@ -116,6 +122,7 @@ const RegistrationForm = () => {
         <div className="form-group">
           <label>Password:</label>
           <input
+          required
             type="password"
             className="form-control"
             name="password"

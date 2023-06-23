@@ -33,7 +33,7 @@ public class UtenteService {
 
 	public Utente createUtente(UserRegistrationPayload u) {
 		 utenteRepo.findByEmailUtente(u.getEmailUtente()).ifPresent(user -> {
-		 throw new EmailAlreadyExistsException("Email" + user.getEmailUtente() + "già in uso");
+		 throw new EmailAlreadyExistsException("Email " + user.getEmailUtente() + "già in uso");
 		 });
 		Utente newUtente = new Utente(u.getUsername(), u.getName(), u.getSurname(), u.getEmailUtente(),
 				u.getPassword());
