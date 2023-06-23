@@ -2,46 +2,56 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9';
 
-const SignUp = () => {
-    const [formData, setFormData] = useState({
-        username: '',
-        name: '',
-        surname: '',
-        emailUtente: '',
-        password: '',
+const SignIn = () => {
+  const [signIn, setSignIn] = useState(false);
+  const [formData, setFormData] = useState({
+    username: '',
+    name: '',
+    surname: '',
+    emailUtente: '',
+    password: '',
+  });
+
+  const handleInputChange = (event) => {
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  // const renderAlert = () => {
+  //   if (signIn) {
+  //     return alert('Registration successful!');
+  //   } else {
+  //     return alert('Error occurred with registration!');
+  //   }
+  // };
+
+  const handleRegistrationSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await fetch('http://localhost:3142/auth/registration', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + token,
+        },
+        body: JSON.stringify(formData),
       });
-      
-      const handleInputChange = (event) => {
-        setFormData({
-          ...formData,
-          [event.target.name]: event.target.value,
-        });
-      };
-    
-      const handleRegistrationSubmit = (event) => {
-        event.preventDefault();
-    
-        fetch('http://localhost:3142/auth/registration', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + token,
-          },
-          body: JSON.stringify(formData),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            // Handle the registration response data
-            if(data.ok){
-                alert('registration ok!');
-                console.log('Registration data:', data);
-            }
-          })
-          .catch((error) => {
-            // Handle registration errors
-            console.error('Registration error:', error);
-          });
-      };
+      const data = await response.json();
+
+      if (response.status === 201) {
+        alert('Registration successful!');
+        console.log('Registration data: ' + data);
+      } else {
+        alert('Error occurred with registration!');
+      }
+    } catch (error) {
+      console.error('Registration error:', error);
+    }
+  };
+
   return (
     <>
     <div className="container">
@@ -120,4 +130,4 @@ const SignUp = () => {
   )
 }
 
-export default SignUp;
+export default SignIn;

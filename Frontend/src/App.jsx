@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './components/Login';
 import Profile from './components/profile';
-import Navbar from './components/Navbar';
 import Home from './components/Home';
-import SignUp from './components/SignUp';
+import SignIn from './components/SignIn';
+
 
 function App() {
 
@@ -18,8 +18,8 @@ function App() {
 
             <>
               <Route path="/profile" element={<Profile />} />
-              <Route path="/home" element={<Home />} />
-              <Route path="/SignUp" element={<SignUp />} />
+              <Route path="/Home" element={<Home />} />
+              <Route path="/SignIn" element={<SignIn />} />
             </>
 
         </Routes>
