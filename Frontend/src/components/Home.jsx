@@ -1,25 +1,76 @@
+import React, { useState } from "react";
 import Navbar from "./Navbar";
+import Fatture from "./Fatture";
 
 const Home = () => {
-    return(
-        <>
-        <Navbar/>
-        <div className="d-flex justify-content-around my-5">
-        <section className="mx-5">
-            <div className="fs-5">Fatture</div>
-        </section>
+  const [activeTab, setActiveTab] = useState("fatture");
 
-        <section className="mx-5">
-            <div className="fs-5">Utenti</div>
-        </section>
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+  };
 
-        <section className="mx-5">
-            <div className="fs-5">Clienti</div>
-        </section>
+  return (
+    <>
+      <Navbar />
+      <div className="d-flex justify-content-center my-3">
+        <button
+          className={`btn btn-primary me-2 ${
+            activeTab === "fatture" ? "active" : ""
+          }`}
+          onClick={() => handleTabClick("fatture")}
+        >
+          Fatture
+        </button>
+        <button
+          className={`btn btn-primary me-2 ${
+            activeTab === "utenti" ? "active" : ""
+          }`}
+          onClick={() => handleTabClick("utenti")}
+        >
+          Utenti
+        </button>
+        <button
+          className={`btn btn-primary ${
+            activeTab === "clienti" ? "active" : ""
+          }`}
+          onClick={() => handleTabClick("clienti")}
+        >
+          Clienti
+        </button>
+      </div>
+      <div className="container my-5">
+        <div className="row">
+          <div
+            className={`col mx-3 p-3 border ${
+              activeTab === "fatture" ? "" : "d-none"
+            }`}
+          >
+            <Fatture />
+          </div>
+
+          <div
+            className={`col mx-3 p-3 border ${
+              activeTab === "utenti" ? "" : "d-none"
+            }`}
+          >
+            <h3>Utenti</h3>
+            <p>Contenuto della scheda Utenti</p>
+          </div>
+
+          <div
+            className={`col mx-3 p-3 border ${
+              activeTab === "clienti" ? "" : "d-none"
+            }`}
+          >
+            <h3>Clienti</h3>
+            <p>Contenuto della scheda Clienti</p>
+          </div>
         </div>
-       
-        </>
-    )
-}
+      </div>
+
+      
+    </>
+  );
+};
 
 export default Home;
