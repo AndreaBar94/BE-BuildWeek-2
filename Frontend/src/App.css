@@ -86,13 +86,21 @@ a {
 
 .logo {
   width: 4rem;
+  animation: logo-spin infinite 10s linear;
+
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
   }
 }
+
+
 
 .App-header {
   background-color: #282c34;
