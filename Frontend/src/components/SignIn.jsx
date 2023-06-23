@@ -4,7 +4,7 @@ import logo from "../logo.svg";
 const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9";
 
 const SignIn = () => {
-  const [signIn, setSignIn] = useState(false);
+
   const [formData, setFormData] = useState({
     username: "",
     name: "",
@@ -19,14 +19,6 @@ const SignIn = () => {
       [event.target.name]: event.target.value,
     });
   };
-
-  // const renderAlert = () => {
-  //   if (signIn) {
-  //     return alert('Registration successful!');
-  //   } else {
-  //     return alert('Error occurred with registration!');
-  //   }
-  // };
 
   const handleRegistrationSubmit = async (event) => {
     event.preventDefault();
