@@ -1,11 +1,10 @@
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./App.css";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useState } from "react";
-import Login from "./components/Login";
-import Profile from "./components/profile";
-import Navbar from "./components/Navbar";
-import Home from "./components/Home";
+import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import Login from './components/Login';
+import Profile from './components/profile';
+import Navbar from './components/Navbar';
+import Home from './components/Home';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -28,14 +27,11 @@ function App() {
           <Route path="/" element={<Login handleLogin={handleLogin} />} />
           {isLoggedIn ? (
             <>
-              {/* <Route path="/profile" element={<Profile />} />
-              <Route path="/home" element={<Home />} /> */}
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/home" element={<Home />} />
             </>
           ) : (
-            <Route
-              path="/*"
-              element={<Navigate to="/" replace={true} />}
-            />
+            <Route path="/*" element={<Navigate to="/" replace={true} />} />
           )}
         </Routes>
       </BrowserRouter>

@@ -8,7 +8,7 @@ const RegistrationForm = () => {
     username: '',
     name: '',
     surname: '',
-    email: '',
+    emailUtente: '',
     password: '',
   });
 
@@ -104,8 +104,8 @@ const RegistrationForm = () => {
           <input
             type="email"
             className="form-control"
-            name="email"
-            value={formData.email}
+            name="emailUtente"
+            value={formData.emailUtente}
             onChange={handleInputChange}
           />
         </div>
@@ -132,7 +132,7 @@ const RegistrationForm = () => {
             type="email"
             className="form-control"
             name="email"
-            value={formData.email}
+            value={formData.emailUtente}
             onChange={handleInputChange}
           />
         </div>
