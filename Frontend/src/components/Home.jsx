@@ -45,6 +45,7 @@ const Home = () => {
               activeTab === "fatture" ? "" : "d-none"
             }`}
           >
+            <h3>Fatture</h3>
             <Fatture />
           </div>
 
