@@ -63,10 +63,18 @@ public class ExceptionsHandler {
     }
 	
 	@ExceptionHandler(GeneralErrorException.class)
-	public ResponseEntity<ErrorsPayload> handleGeneric(GeneralErrorException e) {
+	public ResponseEntity<ErrorsPayload> handleGeneralError(GeneralErrorException e) {
 
-		ErrorsPayload payload = new ErrorsPayload("Errore Generico", new Date(), 500);
+		ErrorsPayload payload = new ErrorsPayload(e.getMessage(), new Date(), 500);
 
+		return new ResponseEntity<ErrorsPayload>(payload, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<ErrorsPayload> handleGeneric(Exception e) {
+		
+		ErrorsPayload payload = new ErrorsPayload("Errore generico", new Date(), 500);
+		
 		return new ResponseEntity<ErrorsPayload>(payload, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
