@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9';
+
 const RegistrationForm = () => {
-    const [formData, setFormData] = useState({
-      username: '',
-      name: '',
-      surname: '',
-      email: '',
-      password: '',
-    });
+  const [formData, setFormData] = useState({
+    username: '',
+    name: '',
+    surname: '',
+    email: '',
+    password: '',
+  });
 
   const handleInputChange = (event) => {
     setFormData({
@@ -23,14 +26,14 @@ const RegistrationForm = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
+        Authorization: 'Bearer ' + token,
       },
       body: JSON.stringify(formData),
     })
       .then((response) => response.json())
       .then((data) => {
         // Handle the registration response data
-        alert('registration ok!')
+        alert('registration ok!');
         console.log('Registration data:', data);
       })
       .catch((error) => {
@@ -46,14 +49,14 @@ const RegistrationForm = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
+        Authorization: 'Bearer ' + token,
       },
       body: JSON.stringify(formData),
     })
       .then((response) => response.json())
       .then((data) => {
         // Handle the login response data
-        alert('Login ok!')
+        alert('Login ok!');
         console.log('Login data:', data);
       })
       .catch((error) => {
@@ -63,85 +66,89 @@ const RegistrationForm = () => {
   };
 
   return (
-    <div>
-     <h2>Registration</h2>
+    <div className="container">
+      <h2>Registration</h2>
       <form onSubmit={handleRegistrationSubmit}>
-        <label>
-          Username:
+        <div className="form-group">
+          <label>Username:</label>
           <input
             type="text"
+            className="form-control"
             name="username"
             value={formData.username}
             onChange={handleInputChange}
           />
-        </label>
-        <br />
-        <label>
-          Name:
+        </div>
+        <div className="form-group">
+          <label>Name:</label>
           <input
             type="text"
+            className="form-control"
             name="name"
             value={formData.name}
             onChange={handleInputChange}
           />
-        </label>
-        <br />
-        <label>
-          Surname:
+        </div>
+        <div className="form-group">
+          <label>Surname:</label>
           <input
             type="text"
+            className="form-control"
             name="surname"
             value={formData.surname}
             onChange={handleInputChange}
           />
-        </label>
-        <br />
-        <label>
-          Email:
+        </div>
+        <div className="form-group">
+          <label>Email:</label>
           <input
             type="email"
+            className="form-control"
             name="email"
             value={formData.email}
             onChange={handleInputChange}
           />
-        </label>
-        <br />
-        <label>
-          Password:
+        </div>
+        <div className="form-group">
+          <label>Password:</label>
           <input
             type="password"
+            className="form-control"
             name="password"
             value={formData.password}
             onChange={handleInputChange}
           />
-        </label>
-        <br />
-        <button type="submit">Register</button>
+        </div>
+        <button type="submit" className="btn btn-primary">
+          Register
+        </button>
       </form>
 
       <h2>Login</h2>
       <form onSubmit={handleLoginSubmit}>
-        <label>
-          Email:
+        <div className="form-group">
+          <label>Email:</label>
           <input
             type="email"
+            className="form-control"
             name="email"
             value={formData.email}
             onChange={handleInputChange}
           />
-        </label>
-        <br />
-        <label>
-          Password:
+        </div>
+        <div className="form-group">
+          <label>Password:</label>
           <input
             type="password"
+            className="form-control"
             name="password"
             value={formData.password}
             onChange={handleInputChange}
           />
-        </label>
-        <br />
-        <button type="submit">Login</button>
+        </div>
+        <button type="submit" className="btn btn-primary">
+          Login
+        </button>
       </form>
     </div>
   );
