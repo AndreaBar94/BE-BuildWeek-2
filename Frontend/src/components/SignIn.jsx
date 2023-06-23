@@ -66,7 +66,7 @@ const SignIn = () => {
             <input
               required
               type="text"
-              className="form-control shadow mb-3"
+              className="form-control shadow mb-3 border border-2 border-primary"
               name="username"
               placeholder="Enter username"
               value={formData.username}
@@ -78,7 +78,7 @@ const SignIn = () => {
             <input
               required
               type="text"
-              className="form-control shadow mb-3"
+              className="form-control shadow mb-3 border border-2 border-primary"
               name="name"
               placeholder="Enter name"
               value={formData.name}
@@ -90,7 +90,7 @@ const SignIn = () => {
             <input
               required
               type="text"
-              className="form-control shadow mb-3"
+              className="form-control shadow mb-3 border border-2 border-primary"
               name="surname"
               placeholder="Enter surname"
               value={formData.surname}
@@ -102,7 +102,7 @@ const SignIn = () => {
             <input
               required
               type="email"
-              className="form-control shadow mb-3"
+              className="form-control shadow mb-3 border border-2 border-primary"
               name="emailUtente"
               placeholder="Enter email"
               value={formData.emailUtente}
@@ -114,7 +114,7 @@ const SignIn = () => {
             <input
               required
               type="password"
-              className="form-control shadow "
+              className="form-control shadow border border-2 border-primary"
               name="password"
               placeholder="Enter password (at least 8 characters, one digit, one letter, and one special character)"
               value={formData.password}

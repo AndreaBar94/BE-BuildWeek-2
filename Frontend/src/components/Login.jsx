@@ -63,7 +63,7 @@ const RegistrationForm = () => {
           <label>Email:</label>
           <input
             type="email"
-            className="form-control shadow mb-3"
+            className="form-control shadow mb-3 border border-2 border-primary"
             name="emailUtente"
             placeholder="Enter email"
             value={formData.emailUtente}
@@ -74,7 +74,7 @@ const RegistrationForm = () => {
           <label>Password:</label>
           <input
             type="password"
-            className="form-control shadow"
+            className="form-control shadow border border-2 border-primary"
             name="password"
             placeholder="Enter password"
             value={formData.password}
