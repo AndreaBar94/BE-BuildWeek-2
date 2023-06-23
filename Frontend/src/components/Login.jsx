@@ -42,16 +42,18 @@ const RegistrationForm = () => {
   const handleLoginSubmit = (event) => {
     event.preventDefault();
 
-    fetch('/api/login', {
+    fetch('http://localhost:3142/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
       },
       body: JSON.stringify(formData),
     })
       .then((response) => response.json())
       .then((data) => {
         // Handle the login response data
+        alert('Login ok!')
         console.log('Login data:', data);
       })
       .catch((error) => {
@@ -120,11 +122,11 @@ const RegistrationForm = () => {
       <h2>Login</h2>
       <form onSubmit={handleLoginSubmit}>
         <label>
-          Username:
+          Email:
           <input
-            type="text"
-            name="username"
-            value={formData.username}
+            type="email"
+            name="email"
+            value={formData.email}
             onChange={handleInputChange}
           />
         </label>
