@@ -75,6 +75,7 @@ const RegistrationForm = () => {
             type="text"
             className="form-control"
             name="username"
+            placeholder="Enter username"
             value={formData.username}
             onChange={handleInputChange}
           />
@@ -85,6 +86,7 @@ const RegistrationForm = () => {
             type="text"
             className="form-control"
             name="name"
+            placeholder="Enter name"
             value={formData.name}
             onChange={handleInputChange}
           />
@@ -95,6 +97,7 @@ const RegistrationForm = () => {
             type="text"
             className="form-control"
             name="surname"
+            placeholder="Enter surname"
             value={formData.surname}
             onChange={handleInputChange}
           />
@@ -105,6 +108,7 @@ const RegistrationForm = () => {
             type="email"
             className="form-control"
             name="emailUtente"
+            placeholder="Enter email"
             value={formData.emailUtente}
             onChange={handleInputChange}
           />
@@ -115,6 +119,7 @@ const RegistrationForm = () => {
             type="password"
             className="form-control"
             name="password"
+            placeholder="Enter password (at least 8 characters, one digit, one letter, and one special character)"
             value={formData.password}
             onChange={handleInputChange}
           />
@@ -132,6 +137,7 @@ const RegistrationForm = () => {
             type="email"
             className="form-control"
             name="email"
+            placeholder="Enter email"
             value={formData.emailUtente}
             onChange={handleInputChange}
           />
@@ -142,6 +148,7 @@ const RegistrationForm = () => {
             type="password"
             className="form-control"
             name="password"
+            placeholder="Enter password"
             value={formData.password}
             onChange={handleInputChange}
           />

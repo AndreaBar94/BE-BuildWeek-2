@@ -8,17 +8,20 @@ import lombok.Data;
 
 @Data
 public class UserRegistrationPayload {
-	@Size(max = 20, message = "Username must be at most 20 characters long")
-	private String username;
+	@Size(min = 3, max = 20, message = "Username must be at most 20 characters long")
+    private String username;
+	
+	@Size(min = 3, max = 20, message = "Name must be at most 20 characters long")
+    @NotEmpty(message = "Name is required")
+    private String name;
 
-	@NotEmpty(message = "Name is required")
-	private String name;
-
-	@NotEmpty(message = "Surname is required")
-	private String surname;
-
-	@Email(message = "Invalid email format")
-	private String emailUtente;
+	@Size(min = 3, max = 20, message = "Surname must be at most 20 characters long")
+    @NotEmpty(message = "Surname is required")
+    private String surname;
+	
+	
+    @Email(message = "Invalid email format")
+    private String emailUtente;
 
 	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$", message = "Password must be at least 8 characters long and contain at least one digit, one letter, and one special character")
 	private String password;
