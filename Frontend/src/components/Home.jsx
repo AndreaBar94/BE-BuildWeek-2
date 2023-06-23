@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Navbar from "./Navbar";
 import Fatture from "./Fatture";
+import Utenti from "./Utenti";
+import Clienti from "./Clienti";
 
 const Home = () => {
   const [activeTab, setActiveTab] = useState("fatture");
@@ -55,7 +57,7 @@ const Home = () => {
             }`}
           >
             <h3>Utenti</h3>
-            <p>Contenuto della scheda Utenti</p>
+            <Utenti/>
           </div>
 
           <div
@@ -64,7 +66,7 @@ const Home = () => {
             }`}
           >
             <h3>Clienti</h3>
-            <p>Contenuto della scheda Clienti</p>
+            <Clienti />
           </div>
         </div>
       </div>

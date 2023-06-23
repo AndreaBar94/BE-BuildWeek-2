@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../logo.svg";
 const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9";
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-
+const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ3ZW1haWxAZW1haWwuaXQiLCJpYXQiOjE2ODc1MjUzODcsImV4cCI6MTY4NzYxMTc4N30.MACVNIpW4UdtPfIXAyjLxAhWpltnfN78CfXM7MFYKek";
 const Clienti = () => {
-  const [clienti, setClienti] = useState([]);
+  const [clienti, setClienti] = useState();
 
   useEffect(() => {
     fetchClienti();
@@ -9,7 +9,12 @@ const Clienti = () => {
 
   const fetchClienti = async () => {
     try {
-      const response = await fetch("http://localhost:3165/auth/clienti"); // Inserisci l'URL corretto per ottenere i dati delle fatture
+      const response = await fetch("http://localhost:3142/clienti", {
+        headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+        }
+    });// Inserisci l'URL corretto per ottenere i dati delle fatture
       const data = await response.json();
       setClienti(data);
     } catch (error) {
@@ -20,7 +25,6 @@ const Clienti = () => {
   return (
     <div>
       <div className="row">
-        <div className="col">ID</div>
         <div className="col">Cognome</div>
         <div className="col">DataInserimento</div>
         <div className="col">dataUltimoContatto</div>
@@ -33,12 +37,9 @@ const Clienti = () => {
         <div className="col">ragioneSociale</div>
         <div className="col">telefono</div>
         <div className="col">tipoCliente</div>
-        <div className="col">idUtente</div>
-        <div className="col">idIndirizzo</div>
       </div>
-      {clienti.map((cliente) => (
-        <div key={cliente.id} className="row">
-          <div className="col">{cliente.id}</div>
+      {clienti && clienti.content && clienti.content.map((cliente) => (
+        <div key={cliente.idCliente} className="row">
           <div className="col">{cliente.cognome}</div>
           <div className="col">{cliente.dataInserimento}</div>
           <div className="col">{cliente.dataUltimoContatto}</div>
@@ -51,8 +52,6 @@ const Clienti = () => {
           <div className="col">{cliente.ragioneSociale}</div>
           <div className="col">{cliente.telefono}</div>
           <div className="col">{cliente.tipoCliente}</div>
-          <div className="col">{cliente.idUtente}</div>
-          <div className="col">{cliente.idIndirizzo}</div>
         </div>
       ))}
     </div>
