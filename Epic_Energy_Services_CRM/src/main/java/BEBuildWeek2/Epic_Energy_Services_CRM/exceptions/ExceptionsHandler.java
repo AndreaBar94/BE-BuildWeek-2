@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -39,10 +40,11 @@ public class ExceptionsHandler {
 	@ExceptionHandler(BadRequestException.class)
 	public ResponseEntity<ErrorsPayload> handleBadRequest(BadRequestException e) {
 
-		ErrorsPayload payload = new ErrorsPayload(e.getMessage(), new Date(), 400);
+	  ErrorsPayload payload = new ErrorsPayload(e.getMessage(), new Date(), 400);
 
-		return new ResponseEntity<ErrorsPayload>(payload, HttpStatus.BAD_REQUEST);
+	  return new ResponseEntity<ErrorsPayload>(payload, HttpStatus.BAD_REQUEST);
 	}
+
 	
 	@ExceptionHandler(UnauthorizedException.class)
 	public ResponseEntity<ErrorsPayload> handleAnauthorized(UnauthorizedException e) {
@@ -52,11 +54,27 @@ public class ExceptionsHandler {
 		return new ResponseEntity<ErrorsPayload>(payload, HttpStatus.UNAUTHORIZED);
 	}
 	
+	@ExceptionHandler(EmailAlreadyExistsException.class)
+    public ResponseEntity<Object> handleEmailAlreadyExistsException(EmailAlreadyExistsException e) {
+
+		ErrorsPayload errorResponse = new ErrorsPayload(e.getMessage(), new Date(), 400);
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+	
+	@ExceptionHandler(GeneralErrorException.class)
+	public ResponseEntity<ErrorsPayload> handleGeneralError(GeneralErrorException e) {
+
+		ErrorsPayload payload = new ErrorsPayload(e.getMessage(), new Date(), 500);
+
+		return new ResponseEntity<ErrorsPayload>(payload, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<ErrorsPayload> handleGeneric(Exception e) {
-
-		ErrorsPayload payload = new ErrorsPayload("Errore Generico", new Date(), 500);
-
+		
+		ErrorsPayload payload = new ErrorsPayload("Errore generico", new Date(), 500);
+		
 		return new ResponseEntity<ErrorsPayload>(payload, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	

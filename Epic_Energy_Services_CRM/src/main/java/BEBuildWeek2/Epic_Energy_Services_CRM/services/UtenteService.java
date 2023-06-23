@@ -11,6 +11,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import BEBuildWeek2.Epic_Energy_Services_CRM.entities.Utente;
+import BEBuildWeek2.Epic_Energy_Services_CRM.exceptions.BadRequestException;
+import BEBuildWeek2.Epic_Energy_Services_CRM.exceptions.EmailAlreadyExistsException;
+import BEBuildWeek2.Epic_Energy_Services_CRM.exceptions.UnauthorizedException;
 import BEBuildWeek2.Epic_Energy_Services_CRM.payloads.UserRegistrationPayload;
 import BEBuildWeek2.Epic_Energy_Services_CRM.repositories.UtenteRepository;
 
@@ -29,10 +32,9 @@ public class UtenteService {
 	}
 
 	public Utente createUtente(UserRegistrationPayload u) {
-		// userRepo.findByEmail(u.getEmailUtente()).ifPresent(user -> {
-		// throw new BadRequestException("Email" + user.getEmailUtente() + "già in
-		// uso.");
-		// });
+		 utenteRepo.findByEmailUtente(u.getEmailUtente()).ifPresent(user -> {
+		 throw new EmailAlreadyExistsException("Email " + user.getEmailUtente() + "già in uso");
+		 });
 		Utente newUtente = new Utente(u.getUsername(), u.getName(), u.getSurname(), u.getEmailUtente(),
 				u.getPassword());
 		return utenteRepo.save(newUtente);

@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import BEBuildWeek2.Epic_Energy_Services_CRM.utils.StatoFattura;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -32,6 +34,7 @@ public class Fattura {
 
 	@ManyToOne
 	@JoinColumn(name = "idCliente")
+	@JsonIgnore
 	private Cliente idCliente;
 
 	public Fattura(int numeroFattura, int anno, Date data, BigDecimal importo, StatoFattura state, Cliente idCliente) {

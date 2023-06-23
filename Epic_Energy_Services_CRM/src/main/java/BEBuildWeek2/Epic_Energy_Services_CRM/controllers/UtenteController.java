@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import BEBuildWeek2.Epic_Energy_Services_CRM.entities.Utente;
+import BEBuildWeek2.Epic_Energy_Services_CRM.exceptions.UnauthorizedException;
 import BEBuildWeek2.Epic_Energy_Services_CRM.payloads.UserRegistrationPayload;
 import BEBuildWeek2.Epic_Energy_Services_CRM.services.UtenteService;
 
@@ -30,7 +31,7 @@ public class UtenteController {
 
 	@PostMapping("")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Utente saveUtente(@RequestBody @Validated UserRegistrationPayload body) {
+	public Utente saveUtente(@RequestBody @Validated UserRegistrationPayload body){
 		return utenteService.createUtente(body);
 	}
 
