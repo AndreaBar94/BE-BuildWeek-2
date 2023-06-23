@@ -5,34 +5,23 @@ import Login from './components/Login';
 import Profile from './components/profile';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
+import SignUp from './components/SignUp';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const handleLogin = () => {
-    // Effettua l'accesso e imposta isLoggedIn a true
-    setIsLoggedIn(true);
-  };
-
-  const handleLogout = () => {
-    // Effettua il logout e imposta isLoggedIn a false
-    setIsLoggedIn(false);
-  };
 
   return (
     <div id="all">
       <BrowserRouter>
-        <Navbar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
+        
         <Routes>
-          <Route path="/" element={<Login handleLogin={handleLogin} />} />
-          {isLoggedIn ? (
+          <Route path="/" element={<Login  />} />
+
             <>
               <Route path="/profile" element={<Profile />} />
               <Route path="/home" element={<Home />} />
+              <Route path="/SignUp" element={<SignUp />} />
             </>
-          ) : (
-            <Route path="/*" element={<Navigate to="/" replace={true} />} />
-          )}
+
         </Routes>
       </BrowserRouter>
     </div>

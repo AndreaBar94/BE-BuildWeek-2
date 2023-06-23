@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link } from 'react-router-dom';
+import Home from './Home';
 
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9';
 
 const RegistrationForm = () => {
+      const [loginError, setLoginError] = useState(false);
+  const [isLoggedIn, setLoggedIn] = useState(false);
   const [formData, setFormData] = useState({
     username: '',
     name: '',
@@ -11,7 +15,7 @@ const RegistrationForm = () => {
     emailUtente: '',
     password: '',
   });
-
+  
   const handleInputChange = (event) => {
     setFormData({
       ...formData,
@@ -19,30 +23,32 @@ const RegistrationForm = () => {
     });
   };
 
-  const handleRegistrationSubmit = (event) => {
-    event.preventDefault();
+//   const handleRegistrationSubmit = (event) => {
+//     event.preventDefault();
 
-    fetch('http://localhost:3142/auth/registration', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token,
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle the registration response data
-        if(data.ok){
-            alert('registration ok!');
-            console.log('Registration data:', data);
-        }
-      })
-      .catch((error) => {
-        // Handle registration errors
-        console.error('Registration error:', error);
-      });
-  };
+//     fetch('http://localhost:3142/auth/registration', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//         Authorization: 'Bearer ' + token,
+//       },
+//       body: JSON.stringify(formData),
+//     })
+//       .then((response) => response.json())
+//       .then((data) => {
+//         // Handle the registration response data
+//         if(data.ok){
+//             alert('registration ok!');
+//             console.log('Registration data:', data);
+//         }
+//       })
+//       .catch((error) => {
+//         // Handle registration errors
+//         console.error('Registration error:', error);
+//       });
+//   };
+
+
 
   const handleLoginSubmit = (event) => {
     event.preventDefault();
@@ -57,19 +63,22 @@ const RegistrationForm = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        // Handle the login response data
-        alert('Login ok!');
-        console.log('Login data:', data);
+        if (data.ok) {
+          setLoggedIn(true);
+        } else {
+          setLoginError(true);
+        }
       })
       .catch((error) => {
-        // Handle login errors
         console.error('Login error:', error);
+        setLoginError(true);
       });
   };
 
+
   return (
     <div className="container">
-      <h2>Registration</h2>
+      {/* <h2>Registration</h2>
       <form onSubmit={handleRegistrationSubmit}>
         <div className="form-group">
           <label>Username:</label>
@@ -131,12 +140,14 @@ const RegistrationForm = () => {
             onChange={handleInputChange}
           />
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary mt-2">
           Register
         </button>
-      </form>
+      </form> */}
 
+      <div className="container">
       <h2>Login</h2>
+      {loginError && <p>Login failed. Please try again.</p>}
       <form onSubmit={handleLoginSubmit}>
         <div className="form-group">
           <label>Email:</label>
@@ -145,7 +156,7 @@ const RegistrationForm = () => {
             className="form-control"
             name="email"
             placeholder="Enter email"
-            value={formData.emailUtente}
+            value={formData.email}
             onChange={handleInputChange}
           />
         </div>
@@ -160,10 +171,14 @@ const RegistrationForm = () => {
             onChange={handleInputChange}
           />
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary mt-2">
           Login
         </button>
+        <p>
+          Don't have an account? <Link to="/SignUp">Register</Link>
+        </p>
       </form>
+    </div>
     </div>
   );
 };
